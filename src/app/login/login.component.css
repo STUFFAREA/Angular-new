@@ -1,0 +1,51 @@
+.userForm {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* padding: 0 15px; */
+    margin: auto;
+    margin-top: 50px;
+}
+
+.card-body {
+    border: 1px solid #eee;
+    border-top-style: none;
+    margin-top: 10px;
+    padding: 0 20px;
+}
+
+.userForm h5 {
+    background-color: #33b5e5;
+    color: #fff;
+    padding: 30px 90px;
+    font-size: 20px;
+}
+
+.userForm button {
+    border: 2px solid #33b5e5;
+    background-color: transparent;
+    padding: 10px 70px;
+    border-radius: 30px;
+    color: #33b5e5;
+    margin: 10px;
+}
+
+.userForm button:hover {
+    background-color: #33b5e5;
+    color: #fff;
+}
+
+input.ng-invalid.ng-touched {
+    border: 1px solid #cc0033;
+    ;
+    ;
+}
+
+.error-message {
+    color: #cc0033;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 15px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+}

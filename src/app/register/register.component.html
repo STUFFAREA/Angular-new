@@ -1,0 +1,51 @@
+<div class="userForm">
+    <h5>Sign up</h5>
+    <div class="card-body">
+        <div class="alert alert-success" *ngIf="successMsg">
+            {{ successMsg }}
+        </div>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" class="form-control" formControlName="name">
+                <span *ngIf="!form.get('name').valid && form.get('name').touched" class="error-message">
+                    <p *ngIf="form.get('name').errors['required']">This field is required.</p>
+                    <p *ngIf="form.get('name').errors?.serverError">
+                        {{ form.get('name').errors.serverError }}
+                    </p>
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="text" class="form-control" formControlName="email">
+                <span *ngIf="!form.get('email').valid && form.get('email').touched" class="error-message">
+                    <p *ngIf="form.get('email').errors['required']">This field is required.</p>
+                    <p *ngIf="form.get('email').errors['email']">Invalid email address.</p>
+                    <p *ngIf="form.get('email').errors?.serverError">
+                        {{ form.get('email').errors.serverError }}
+                    </p>
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" class="form-control" formControlName="password">
+                <span *ngIf="!form.get('password').valid && form.get('password').touched" class="error-message">
+                    <p *ngIf="form.get('password').errors['required']">This field is required.</p>
+                    <p *ngIf="form.get('password').errors?.serverError">
+                        {{ form.get('password').errors.serverError }}
+                    </p>
+                </span>
+            </div>
+
+            <button type="submit" class="btn btn-success" [disabled]="!form.valid">Sign Up</button>
+
+            <p>Already a member?
+                <a routerLink="/login">Login</a>
+            </p>
+        </form>
+
+    </div>
+</div>
