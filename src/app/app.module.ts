@@ -12,6 +12,7 @@ import { AuthGuard } from './auth.guard';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { TokenInterceptor } from './shared/auth-interceptor.service';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { TokenInterceptor } from './shared/auth-interceptor.service';
     LoginComponent,
     PagenotfoundComponent,
     DashboardComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,

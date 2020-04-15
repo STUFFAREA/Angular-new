@@ -26,14 +26,16 @@ export class LoginComponent implements OnInit {
 			return;
 		}
 		this.authService.loginUser(this.loginForm.value).subscribe(
-		responseData => {			
-			console.log('responseData');
-			localStorage.setItem('token',responseData['token']);
-			
-			// this.authService.redirectToPost(responseData['token']);		
-
-			this.authService.setLoginStatus(true);
-			this.router.navigate(['dashboard']);
+		responseData => {		
+			this.authService.profile().subscribe(
+				res => {
+					this.authService.setLoginStatus(true);
+					this.router.navigate(['dashboard']);
+				},
+				err => {
+					console.log(err);
+				}
+			);	
 		},
 		err => {
 		if(err.status === 400) {
