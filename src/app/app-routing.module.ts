@@ -7,6 +7,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './auth.guard';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { HomeComponent } from './home/home.component';
+import { NewListComponent } from './new-list/new-list.component';
 
 
 const routes: Routes = [  
@@ -14,7 +15,8 @@ const routes: Routes = [
 {  path : 'login' ,component :LoginComponent }, 
 {  path : 'register' ,component :RegisterComponent }, 
 {  path : 'dashboard' , canActivate: [AuthGuard] ,component :DashboardComponent, children : [
-  { path : '' , component :HomeComponent } ,  
+  { path : '' , component :HomeComponent } ,
+  { path : 'new-list', component: NewListComponent },  
   { path : 'profile' , component :EditProfileComponent }   
 ]}, 
 {  path : '**' , component : PagenotfoundComponent }

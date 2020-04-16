@@ -14,6 +14,8 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
 import { TokenInterceptor } from './shared/auth-interceptor.service';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { HomeComponent } from './home/home.component';
+import { NewListComponent } from './new-list/new-list.component';
+import { ListService } from './shared/list.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { HomeComponent } from './home/home.component';
     DashboardComponent,
     LoadingSpinnerComponent,
     EditProfileComponent,
-    HomeComponent
+    HomeComponent,
+    NewListComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +36,7 @@ import { HomeComponent } from './home/home.component';
     ReactiveFormsModule
   ],
   providers: [AuthGuard,
+              ListService
               // {provide : HTTP_INTERCEPTORS,
               // useClass: TokenInterceptor,
               // multi:true

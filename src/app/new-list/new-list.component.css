@@ -1,0 +1,38 @@
+.itemForm {
+    align-items: center;
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: center;
+    margin: 20%;
+    margin-top: 50px;
+}
+
+.itemForm h5 {
+    color: #101010;
+    font-size: 20px;
+}
+
+.itemForm button {
+    border: 2px solid #33b5e5;
+    background-color: transparent;
+    padding: 10px 50px;
+    border-radius: 30px;
+    color: #33b5e5;
+    margin: 10px;
+}
+
+.itemForm button:hover {
+    background-color: #33b5e5;
+    color: #fff;
+}
+
+input.ng-invalid.ng-touched {
+    border: 1px solid #cc0033;
+}
+
+.error-message {
+    color: #cc0033;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 15px;
+}
