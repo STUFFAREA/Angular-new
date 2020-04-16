@@ -27,9 +27,11 @@ export class NewListComponent implements OnInit {
   addItem() {
     this.listService.addItems(this.itemForm.value).subscribe(
       res => {
+        this.error = null;
         this.successMsg = res['message'];
       },
       err => {
+        this.successMsg = null;
         this.error = err.error['message'];
       }
     );
