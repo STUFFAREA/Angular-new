@@ -11,17 +11,24 @@
 
             <div class="form-group">
                 <label>Old password</label>
-                <input type="text" class="form-control" formControlName="oldPassword">
+                <input type="password" class="form-control" formControlName="oldPassword">
                 <span *ngIf="!changePasswordForm.get('oldPassword').valid && changePasswordForm.get('oldPassword').touched" class="error-message">
                     <p *ngIf="changePasswordForm.get('oldPassword').errors['required']">This field is required.</p>
+                    <p *ngIf="changePasswordForm.get('oldPassword').errors.serverError">
+                        {{ changePasswordForm.get('oldPassword').errors.serverError }}
+                    </p>
                 </span>
             </div>
 
             <div class="form-group">
                 <label>New password</label>
-                <input type="text" class="form-control" formControlName="newPassword">
+                <input type="password" class="form-control" formControlName="newPassword">
                 <span *ngIf="!changePasswordForm.get('newPassword').valid && changePasswordForm.get('newPassword').touched" class="error-message">
                     <p *ngIf="changePasswordForm.get('newPassword').errors['required']">This field is required.</p>
+                    <p *ngIf="changePasswordForm.get('newPassword').errors['minLength']">Must be atleast 6 characters.</p>
+                    <p *ngIf="changePasswordForm.get('newPassword').errors.serverError">
+                        {{ changePasswordForm.get('newPassword').errors.serverError }}
+                    </p>
                 </span>
                 <span *ngIf="changePasswordForm.errors?.invalid">
                     Passwords doesn't match

@@ -9,17 +9,16 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
-  title : string;
+  post : Object;
   constructor(private authService : AuthService,private router: Router) { }
 
   ngOnInit(): void {
-    this.authService.getUserDetails();
   }
  
   onLogout() {
     this.authService.onLogout().subscribe(
       res => {
-        window.localStorage.removeItem('token')	
+        localStorage.clear();	
         this.router.navigate(['/login']);
       }      
     );

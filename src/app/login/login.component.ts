@@ -26,16 +26,8 @@ export class LoginComponent implements OnInit {
 			return;
 		}
 		this.authService.loginUser(this.loginForm.value).subscribe(
-		responseData => {		
-			this.authService.profile().subscribe(
-				res => {
-					this.authService.setLoginStatus(true);
-					this.router.navigate(['dashboard']);
-				},
-				err => {
-					console.log(err);
-				}
-			);	
+		responseData => {	
+			this.authService.profile()
 		},
 		err => {
 		if(err.status === 400) {
