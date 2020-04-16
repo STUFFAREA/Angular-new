@@ -36,3 +36,18 @@ input.ng-invalid.ng-touched {
     font-size: 12px;
     line-height: 15px;
 }
+
+.list-item {
+    padding: 10px;
+    background-color: #101010;
+    border: 2px solid #101010;
+    border-radius: 5px;
+    margin: 10px;
+    color: #fff;
+    height: 35px;
+}
+
+.list-item p {
+    padding-left: 10px;
+    margin-top: -4px;
+}

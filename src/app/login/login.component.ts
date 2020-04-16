@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 		}
 		this.authService.loginUser(this.loginForm.value).subscribe(
 		responseData => {	
-			this.authService.profile()
+			this.authService.getPost()
 		},
 		err => {
 		if(err.status === 400) {

@@ -82,13 +82,16 @@ export class AuthService {
 	}
 
 	public profile() { 
+		return this.http.get('http://localhost:3000/api/post',{		 
+					headers: { Authorization: this.getToken() }		 
+					})
+	}
+
+	public getPost() { 
 		this.http.get('http://localhost:3000/api/post',{		 
 		headers: { Authorization: this.getToken() }		 
 		}).subscribe(
 			res => {
-				this.posts = res['posts'];
-				localStorage.setItem('data',JSON.stringify(res['posts']));
-
 				this.setLoginStatus(true);
 				this.router.navigate(['dashboard']);
 			},
@@ -98,7 +101,6 @@ export class AuthService {
 		);	
 	}
 
-	
 	// public getUserDetails(): UserDetails { 
 	// 		const token = this.getToken()			 
 	// 		let payload;			 

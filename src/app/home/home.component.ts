@@ -11,8 +11,15 @@ export class HomeComponent implements OnInit {
   post : Object;
   constructor(private authService : AuthService) { }
 
-  ngOnInit(): void {
-    this.post = JSON.parse(localStorage.getItem('data'));
+  ngOnInit() {
+    this.getPosts();
   }
 
+  public getPosts() {
+    this.authService.profile().subscribe(
+      res => {
+        this.post = res['posts'];
+      }
+    )
+  }
 }

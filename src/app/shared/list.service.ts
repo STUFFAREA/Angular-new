@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { List } from './list.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth.service';
@@ -8,16 +7,18 @@ import { AuthService } from '../auth.service';
 export class ListService {
 
 
-    constructor(private http : HttpClient,private authService : AuthService) {}
+constructor(private http : HttpClient,private authService : AuthService) {}
+list ;
 
-// getList() {
-//     return this.worklist;
-// }
+getList() {
+    return this.http.get(environment.apiBaseUrl+'/list',
+            { headers: { Authorization: this.authService.getToken() }})
+            
+}
 
 addItems(item : string) {               
-        return this.http.post(environment.apiBaseUrl+'/list', item,{		 
-            headers: { Authorization: this.authService.getToken() }		 
-            });      
+        return this.http.post(environment.apiBaseUrl+'/list', item, 
+        {  headers: { Authorization: this.authService.getToken() }   });      
 }
 
 // removeItems(id : number) {
