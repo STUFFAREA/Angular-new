@@ -19,7 +19,7 @@
 
     <div *ngIf="list">
         <div *ngFor="let item of list;let i = index" class="list-item">
-            <p [routerLink]="['edit',i]" (click)="editItem(i,item)"> {{ item }} </p>
+            <p (click)="editItem(i,item)"> {{ item }} </p>
         </div>
     </div>
 </div>

@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { List } from '../shared/list.model';
 import { ListService } from '../shared/list.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Title } from '@angular/platform-browser';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-new-list',
@@ -19,7 +18,7 @@ export class NewListComponent implements OnInit {
   successMsg : string = null;
   editMode : boolean = false;
 
-  constructor(private listService: ListService) {}
+  constructor(private listService: ListService,private router : Router, private route: ActivatedRoute) {}
 
 	ngOnInit() {
     this.getPosts();
@@ -53,7 +52,7 @@ addItem(title : string) {
         this.successMsg = null;
       });
   }else {                                               //Edit item
-    console.log("yet to be updated");
+    this.listService.updateItem(this.id).subscribe(res => {console.log(res, 'Updated')});
   }   
 }
 
@@ -69,7 +68,7 @@ editItem(id : string,title : string) {
       for(let i in res) {
         if(+id === +i){
           this.id = res[i]['_id'];
-      return this.listService.updateItem(this.id);
+          this.router.navigate(['edit',this.id] , { relativeTo: this.route })
         }
       }
     }
