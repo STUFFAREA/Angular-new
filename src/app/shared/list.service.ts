@@ -16,9 +16,15 @@ getList() {
             
 }
 
+
 addItems(item : string) {               
-        return this.http.post(environment.apiBaseUrl+'/list', item, 
-        {  headers: { Authorization: this.authService.getToken() }   });      
+    return this.http.post(environment.apiBaseUrl+'/list', item, 
+    {  headers: { Authorization: this.authService.getToken() }   });      
+}
+
+updateItem(data : string) {
+    return this.http.put(environment.apiBaseUrl+'/edit/data',data,
+    {  headers: { Authorization: this.authService.getToken() }   });
 }
 
 // removeItems(id : number) {

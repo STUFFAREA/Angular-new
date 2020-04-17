@@ -2,9 +2,9 @@
     <div class="alert alert-success" *ngIf="successMsg"> {{ successMsg }} </div>
     <div class="alert alert-danger" *ngIf="error"> {{ error }} </div>
     <h5>Add List</h5>
-    <form (ngSubmit)="addItem()" [formGroup]="itemForm">
+    <form (ngSubmit)="addItem(title.value)" [formGroup]="itemForm">
         <div class="form-group">
-            <input type="text" class="form-control" formControlName="addList" placeholder="New item..." [ngClass]="{error:error}">
+            <input type="text" class="form-control" #title formControlName="addList" placeholder="New item..." [ngClass]="{error:error}">
             <span *ngIf="itemForm.get('addList').touched && !itemForm.get('addList').valid" class="error-message">
                 <p *ngIf="itemForm.get('addList').errors['required']">This field is required.</p>
                 <p *ngIf="itemForm.get('addList').errors.serverError">
@@ -12,13 +12,14 @@
                 </p>
         </span>
         </div>
-        <button type="submit" class="btn" [disabled]="!itemForm.valid">Add</button>
+        <button type="submit" class="btn" [disabled]="!itemForm.valid"> {{ editMode ? 'Update' : 'Add' }}</button>
+        <button *ngIf="editMode" (click)="addnewItem()" class="btn btn-default">+ Add new </button>
 
     </form>
 
     <div *ngIf="list">
-        <div *ngFor="let item of list" class="list-item">
-            <p> {{ item }} </p>
+        <div *ngFor="let item of list;let i = index" class="list-item">
+            <p [routerLink]="['edit',i]" (click)="editItem(i,item)"> {{ item }} </p>
         </div>
     </div>
 </div>
