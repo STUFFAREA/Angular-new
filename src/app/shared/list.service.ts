@@ -24,7 +24,7 @@ addItems(item : string) {
 
 updateItem(data : string) {
     console.log(data);
-    return this.http.put(environment.apiBaseUrl+'/list/edit/'+data,
+    return this.http.put(environment.apiBaseUrl+'/list/edit/'+data,'',
     {  headers: { Authorization: this.authService.getToken() }   });
 }
 
