@@ -13,14 +13,14 @@
         </span>
         </div>
         <button type="submit" class="btn" [disabled]="!itemForm.valid"> {{ editMode ? 'Update' : 'Add' }}</button>
-        <button *ngIf="editMode" (click)="addnewItem()" class="btn btn-default">+ Add new </button>
+        <button type="submit" *ngIf="editMode" (click)="addnewItem()" class="btn btn-default">+ Add new </button>
 
     </form>
 
     <div *ngIf="list">
-        <div *ngFor="let item of list;let i = index" class="list-item remove-item">
-            <p (click)="editItem(i,item)"> {{ item }}
-                <span class="pull-right" (click)="removeItem(i)"> X </span>
+        <div *ngFor="let item of list;let i = index" class="list-item ">
+            <p (click)="editItem(i,item)" class="remove-item"> {{ item }}
+                <span class="pull-right remove-item" (click)="removeItem(i)"> X </span>
             </p>
         </div>
     </div>

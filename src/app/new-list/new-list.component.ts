@@ -56,7 +56,7 @@ addItem(title : string) {
         this.successMsg = null;
       });
   }else {     
-    this.listService.updateItem(this.itemForm.value,this.urlId).subscribe(res => { console.log(res, 'Updated') });    
+    this.listService.updateItem(this.itemForm.value,this.urlId).subscribe();    
     this.itemForm.reset();
   }   
   this.getPosts();
@@ -65,7 +65,7 @@ addItem(title : string) {
 addnewItem() {
   this.editMode = false;    
   this.itemForm.reset();
-  this.router.navigate(['dashboard/new-list'])
+  this.router.navigate(['../'] , { relativeTo : this.route })
 }
 
 editItem(id : number,title : string) {  
@@ -85,7 +85,8 @@ removeItem(id:number) {
     if(+i === +id){
       this.listService.removeItem(this.id[i]).subscribe(
         res => {
-        console.log("item removed")
+        this.itemForm.reset();
+        this.getPosts();
         }
       ); 
   }  
