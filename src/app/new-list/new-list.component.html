@@ -18,8 +18,10 @@
     </form>
 
     <div *ngIf="list">
-        <div *ngFor="let item of list;let i = index" class="list-item">
-            <p (click)="editItem(i,item)"> {{ item }} </p>
+        <div *ngFor="let item of list;let i = index" class="list-item remove-item">
+            <p (click)="editItem(i,item)"> {{ item }}
+                <span class="pull-right" (click)="removeItem(i)"> X </span>
+            </p>
         </div>
     </div>
 </div>

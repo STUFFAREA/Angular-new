@@ -14,11 +14,10 @@ const routes: Routes = [
 {  path : '' ,redirectTo :'/login', pathMatch:'full' }, 
 {  path : 'login' ,component :LoginComponent }, 
 {  path : 'register' ,component :RegisterComponent }, 
-{  path : 'dashboard' , canActivate: [AuthGuard] ,component :DashboardComponent, children : [
+{  path : 'dashboard' , canActivate: [AuthGuard] , component :DashboardComponent, children : [
   { path : '' , component :HomeComponent } ,
-  { path : 'new-list', component: NewListComponent, children : [
-    { path : 'edit/:id', component: NewListComponent }  
-  ]},   
+  { path : 'new-list', component: NewListComponent},   
+  { path : 'new-list/:id', component: NewListComponent},   
   { path : 'profile' , component :EditProfileComponent }   
 ]}, 
 {  path : '**' , component : PagenotfoundComponent }

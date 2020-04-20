@@ -22,15 +22,16 @@ addItems(item : string) {
     {  headers: { Authorization: this.authService.getToken() }   });      
 }
 
-updateItem(data : string) {
-    console.log(data);
-    return this.http.put(environment.apiBaseUrl+'/list/edit/'+data,'',
+updateItem(data : string,id: string) {
+    return this.http.put(environment.apiBaseUrl+'/list/'+id,data,
     {  headers: { Authorization: this.authService.getToken() }   });
 }
 
-// removeItems(id : number) {
-//     this.worklist.splice(id,1);
-// }
+removeItem(id : string) {
+    return this.http.delete(environment.apiBaseUrl+'/list/'+id,
+    {  headers: { Authorization: this.authService.getToken() }   });
+}
+
 // toggleCompleted(index:number, status : boolean) {
 //     this.worklist[index].isComplete = status;
 // }
