@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { HomeComponent } from '../home/home.component';
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import { ListService } from '../shared/list.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,11 +13,24 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
 
   post : Object;
-  constructor(private authService : AuthService,private router: Router) { }
+
+  list = [];
+  id = [] ;
+  urlId: string;
+  
+  constructor(
+    private authService : AuthService,
+    private router: Router,
+    private route : ActivatedRoute,
+    private dialog: MatDialog, 
+    private listService : ListService) { }
 
   ngOnInit(): void {
+          // this.listService.getPosts();
+          console.log("i am dashboard")
+    this.route.params.subscribe( (params : Params) => this.urlId = params['id'] );    
   }
- 
+
   onLogout() {
     this.authService.onLogout().subscribe(
       res => {
@@ -23,4 +39,25 @@ export class DashboardComponent implements OnInit {
       }      
     );
   }
+
+openDialog() {
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+  
+  const dialogRef = this.dialog.open(HomeComponent, dialogConfig);
+
+  dialogRef.afterClosed().subscribe(
+      data => {
+        this.listService.addItems(data).subscribe(
+        res => {
+          // this.listService.getPosts();
+          console.log("success")
+        },
+        err => {
+          console.log("err")
+        });
+      });
+}
+
 }

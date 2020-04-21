@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-home',
@@ -8,18 +9,24 @@ import { AuthService } from '../auth.service';
 })
 export class HomeComponent implements OnInit {
 
-  post : Object;
-  constructor(private authService : AuthService) { }
+  itemForm : FormGroup;
 
-  ngOnInit() {
-    this.getPosts();
-  }
+  constructor(private dialogRef: MatDialogRef<HomeComponent>) {}
 
-  public getPosts() {
-    this.authService.profile().subscribe(
-      res => {
-        this.post = res['posts'];
-      }
-    )
+	ngOnInit() {
+    this.itemForm = new FormGroup({
+			'addList' : new FormControl(null,Validators.required)
+    }); 	   
+  } 
+
+  save() {
+    if(!this.itemForm.valid) {
+			return;
+		}
+    this.dialogRef.close(this.itemForm.value);
   }
+  close() {
+    this.dialogRef.close();
+}
+
 }

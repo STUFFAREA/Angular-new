@@ -15,7 +15,7 @@ const routes: Routes = [
 {  path : 'login' ,component :LoginComponent }, 
 {  path : 'register' ,component :RegisterComponent }, 
 {  path : 'dashboard' , canActivate: [AuthGuard] , component :DashboardComponent, children : [
-  { path : '' , component :HomeComponent } ,
+  { path : '' , component :NewListComponent } ,
   { path : 'new-list', component: NewListComponent},   
   { path : 'new-list/:id', component: NewListComponent},   
   { path : 'profile' , component :EditProfileComponent }   

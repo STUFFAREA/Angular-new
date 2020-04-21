@@ -11,15 +11,14 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 <li><a routerLink="/dashboard">Home</a></li>
+                <li><a (click)="openDialog()">+</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> Profile <span class="caret"></span></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a routerLink="profile">Edit profile</a></li>
-                        <!-- <li><a routerLink="profile">Change password</a></li> -->
                         <li><a (click)="onLogout()">Logout</a></li>
-
                     </ul>
                 </li>
                 <!-- <li><a (click)="onLogout()"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li> -->

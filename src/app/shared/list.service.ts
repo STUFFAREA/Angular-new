@@ -7,15 +7,30 @@ import { AuthService } from '../auth.service';
 export class ListService {
 
 
-constructor(private http : HttpClient,private authService : AuthService) {}
-list ;
+constructor(private http : HttpClient,private authService : AuthService) {
+    this.getPosts();
+}
+
+list = [];
+id = [];
+
+
+public getPosts() {
+    this.list =[];
+    this.getList().subscribe(
+      res => {
+        for(var i in res) {
+          this.list.push(res[i].addList);
+          this.id.push(res[i]['_id']);          
+        }
+    })
+}
 
 getList() {
     return this.http.get(environment.apiBaseUrl+'/list',
             { headers: { Authorization: this.authService.getToken() }})
             
 }
-
 
 addItems(item : string) {               
     return this.http.post(environment.apiBaseUrl+'/list', item, 

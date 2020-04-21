@@ -1,3 +1,12 @@
+:host /deep/ .mat-list-item-content {
+    display: contents !important;
+    padding: 0 !important;
+}
+
+.active {
+    color: red;
+}
+
 .itemForm {
     align-items: center;
     /* display: flex; */
@@ -42,16 +51,47 @@ input.ng-invalid.ng-touched {
 }
 
 .list-item {
-    padding: 10px;
-    background-color: #101010;
+    /* padding: 10px;
+        background-color: #101010;
     border: 2px solid #101010;
-    border-radius: 5px;
-    margin: 10px;
-    color: #fff;
-    height: 35px;
+        border-radius: 5px;
+        color: #000;
+        height: 40px; */
 }
 
 .list-item p {
     padding-left: 10px;
-    margin-top: -4px;
+    /* margin-top: -10px; */
+}
+
+mat-sidenav-container {
+    margin-top: -20px;
+    height: auto;
+}
+
+.tp-container {
+    width: 200px;
+}
+
+mat-sidenav-content {
+    background: rgba(232, 232, 232, 0.87)
+}
+
+.tp-section {
+    width: 300px;
+}
+
+.mat-list-item {
+    height: 28px !important;
+}
+
+.mat-list-base {
+    padding-top: 0;
+}
+
+.list-card {
+    float: left;
+    margin: 30px;
+    background-color: #dadada;
+    box-shadow: 2px 2px 7px #aaaaaa;
 }

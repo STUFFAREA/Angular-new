@@ -1,11 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-// import { MatButtonModule } from '@angular/material';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
@@ -15,9 +15,10 @@ import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinne
 import { TokenInterceptor } from './shared/auth-interceptor.service';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { HomeComponent } from './home/home.component';
-import { NewListComponent } from './new-list/new-list.component';
 import { ListService } from './shared/list.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DemoMaterialModule } from './material-module';
+import { NewListComponent } from './new-list/new-list.component';
 
 @NgModule({
   declarations: [
@@ -34,10 +35,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    // MatButtonModule
+    DemoMaterialModule
   ],
   providers: [AuthGuard,
               ListService

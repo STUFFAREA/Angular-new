@@ -1,74 +1,46 @@
-import { Component, OnInit } from '@angular/core';
-import { ListService } from '../shared/list.service';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ListService } from 'src/app/shared/list.service';
 
 @Component({
   selector: 'app-new-list',
   templateUrl: './new-list.component.html',
   styleUrls: ['./new-list.component.css']
 })
-export class NewListComponent implements OnInit {
+export class NewListComponent implements OnInit,OnChanges {
   
   itemForm : FormGroup;
   list = [];
   id = [] ;
   urlId: string;
 
+  active :  boolean = false;
   error : string = null;
   successMsg : string = null;
   editMode : boolean = false;
   idByUrl : Subscription;
-  constructor(private listService: ListService,private router : Router, private route: ActivatedRoute) {}
+  
+  constructor(private listService: ListService ,private router : Router, private route: ActivatedRoute) {}
 
 	ngOnInit() {
-    this.getPosts();
+    console.log("i am newlit")
+    // this.listService.getPosts();
+
+    this.list = this.listService.list; 
     this.itemForm = new FormGroup({
 			'addList' : new FormControl(null,Validators.required)
     }); 
     this.route.params.subscribe( (params : Params) => this.urlId = params['id'] );
-    
 		   
-	} 
-
-public getPosts() {
-  this.list =[];
-  this.listService.getList().subscribe(
-    res => {
-      for(var i in res) {
-        this.list.push(res[i].addList);
-        this.id.push(res[i]['_id']);
-      }
-    })
-}
-
-addItem(title : string) { 
-  if(!this.editMode) {                                        //Add new item
-    this.listService.addItems(this.itemForm.value).subscribe(
-      res => {
-        this.error = null;
-        this.successMsg = res['message'];
-        this.itemForm.reset();
-        this.router.navigate(['dashboard/new-list'])
-      },
-      err => {
-        this.successMsg = null;
-      });
-  }else {     
-    this.listService.updateItem(this.itemForm.value,this.urlId).subscribe();    
-    this.itemForm.reset();
-  }   
-  this.getPosts();
-}
-
-addnewItem() {
-  this.editMode = false;    
-  this.itemForm.reset();
-  this.router.navigate(['../'] , { relativeTo : this.route })
-}
+  } 
+  ngOnChanges() {
+    this.ngOnInit();
+  }
 
 editItem(id : number,title : string) {  
+  this.active=true;
   this.editMode = true;     
   this.error = null;
   this.successMsg = null;
@@ -76,8 +48,8 @@ editItem(id : number,title : string) {
         for(var i in this.id) { 
           if(+i === +id){
             this.router.navigate(['/dashboard','new-list',this.id[i]])  
-        }              
-      }     
+          }              
+        }     
 }
 
 removeItem(id:number) {
@@ -86,7 +58,7 @@ removeItem(id:number) {
       this.listService.removeItem(this.id[i]).subscribe(
         res => {
         this.itemForm.reset();
-        this.getPosts();
+        this.listService.getPosts();
         }
       ); 
   }  

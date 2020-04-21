@@ -1,27 +1,49 @@
-<div class="itemForm">
-    <div class="alert alert-success" *ngIf="successMsg"> {{ successMsg }} </div>
-    <div class="alert alert-danger" *ngIf="error"> {{ error }} </div>
-    <h5>Add List</h5>
-    <form (ngSubmit)="addItem(title.value)" [formGroup]="itemForm">
-        <div class="form-group">
-            <input type="text" class="form-control" #title formControlName="addList" placeholder="New item..." [ngClass]="{error:error}">
-            <span *ngIf="itemForm.get('addList').touched && !itemForm.get('addList').valid" class="error-message">
-                <p *ngIf="itemForm.get('addList').errors['required']">This field is required.</p>
-                <p *ngIf="itemForm.get('addList').errors.serverError">
-                    {{ itemForm.get('addList').errors.serverError }}
-                </p>
-        </span>
+<mat-sidenav-container class="tp-containers">
+    <mat-sidenav mode="side" #sidenav>
+        <div *ngIf="list" class="tp-section">
+            <mat-accordion>
+                <mat-expansion-panel [expanded]="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            List
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-list>
+                        <div *ngFor="let item of list;let i = index" class="list-item">
+                            <mat-list-item>
+                                <p (click)="editItem(i,item)" class="remove-item">
+                                    <span class="pull-left"> {{ item }} </span>
+                                    <span class="pull-right remove-item" (click)="removeItem(i)"> X </span>
+                                </p>
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                        </div>
+                    </mat-list>
+                </mat-expansion-panel>
+            </mat-accordion>
         </div>
-        <button type="submit" class="btn" [disabled]="!itemForm.valid"> {{ editMode ? 'Update' : 'Add' }}</button>
-        <button type="submit" *ngIf="editMode" (click)="addnewItem()" class="btn btn-default">+ Add new </button>
+    </mat-sidenav>
 
-    </form>
 
-    <div *ngIf="list">
-        <div *ngFor="let item of list;let i = index" class="list-item ">
-            <p (click)="editItem(i,item)" class="remove-item"> {{ item }}
-                <span class="pull-right remove-item" (click)="removeItem(i)"> X </span>
-            </p>
+    <mat-sidenav-content>
+        <button mat-button (click)="sidenav.toggle()">
+            Toggle
+          </button>
+        <div *ngFor="let item of list;let i = index">
+            <mat-card class="list-card">
+                <mat-card-header>
+                    <mat-card-title> {{ item }} </mat-card-title>
+                </mat-card-header>
+
+                <mat-divider></mat-divider>
+
+                <mat-card-content>
+                    <mat-form-field>
+                        <mat-label>+ New Task</mat-label>
+                        <input matInput #title>
+                    </mat-form-field>
+                </mat-card-content>
+            </mat-card>
         </div>
-    </div>
-</div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
