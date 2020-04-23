@@ -1,4 +1,4 @@
-<mat-sidenav-container class="tp-containers">
+<mat-sidenav-container>
     <mat-sidenav mode="side" #sidenav>
         <div *ngIf="list" class="tp-section">
             <mat-accordion>
@@ -8,22 +8,33 @@
                             List
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <mat-list>
-                        <div *ngFor="let item of list;let i = index" class="list-item">
-                            <mat-list-item>
-                                <p class="remove-item">
-                                    <span class="pull-left"> {{ item }} </span>
-                                    <span class="pull-right remove-item" (click)="removeItem(i)"> X </span>
-                                </p>
-                            </mat-list-item>
-                            <mat-divider></mat-divider>
-                        </div>
-                    </mat-list>
+
+                    <div *ngFor="let item of list;let i = index" class="list-item">
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    {{ item.addList }}
+                                </mat-panel-title>
+                                <!-- <span class="remove-item" (click)="removeItem(i)"> X </span> -->
+                            </mat-expansion-panel-header>
+
+                            <mat-list>
+                                <div *ngFor="let item of list;let i = index" class="list-item">
+                                    <mat-list-item>
+                                        <p class="remove-item">
+                                            <span class="pull-left"> {{ item.addList }} </span>
+                                            <span class="pull-right remove-item" (click)="removeItem(i)"> X </span>
+                                        </p>
+                                    </mat-list-item>
+                                    <mat-divider></mat-divider>
+                                </div>
+                            </mat-list>
+                        </mat-expansion-panel>
+                    </div>
                 </mat-expansion-panel>
             </mat-accordion>
         </div>
     </mat-sidenav>
-
 
     <mat-sidenav-content>
         <button mat-button (click)="sidenav.toggle()" class="toggle-btn">
@@ -33,7 +44,7 @@
             <mat-card class="list-card">
                 <mat-card-header>
                     <mat-card-title (dblclick)="editListTitle(i)">
-                        <span *ngIf="i!==editIndex"> {{ item }}</span>
+                        <span *ngIf="i!==editIndex"> {{ item.addList }}</span>
 
                         <form *ngIf="i===editIndex" [formGroup]="updateTitleForm">
                             <!-- <mat-form-field> -->
@@ -49,14 +60,14 @@
                 <mat-divider></mat-divider>
 
                 <mat-card-content class="task-list">
-                    <div *ngFor="let item of list;let i = index">
-                        <span class="task-list-item"> {{ item }}</span>
+                    <div *ngFor="let taskitem of task;let i = index">
+                        <span *ngIf="item._id===taskitem._listId" class="task-list-item"> {{ taskitem.addTask }}</span>
                     </div>
                     <form [formGroup]="taskForm">
                         <mat-form-field>
                             <mat-label>+ New Task</mat-label>
                             <!-- <input value="{{ item }}" class="form-control" #addList (keyup.enter)="update(addList.value)" (blur)="update(addList.value)"> -->
-                            <input matInput formControlName="addTask" (keyup.enter)="addTask(i)" autocomplete="off">
+                            <input matInput formControlName="addTask" (keyup.enter)="addTask(item._id)" autocomplete="off">
                             <!-- <span class=" glyphicon glyphicon-pencil pull-right "></span> -->
 
                             <span *ngIf="updateTitleForm.get('addList').touched && !updateTitleForm.get('addList').valid" class="error-message">

@@ -27,7 +27,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
           // this.listService.getPosts();
-          console.log("i am dashboard")
     this.route.params.subscribe( (params : Params) => this.urlId = params['id'] );    
   }
 

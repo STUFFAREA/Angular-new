@@ -116,3 +116,7 @@ mat-sidenav-content {
 .task-list {
     margin-top: 10px;
 }
+
+mat-panel-title {
+    font-weight: 600;
+}

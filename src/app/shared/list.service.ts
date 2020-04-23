@@ -2,36 +2,69 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth.service';
+import { Observable } from 'rxjs';
+import { List } from './list';
+import { Task } from './task';
+
+// export interface List {
+//     listId : string;
+//     addList : string
+// }
+// export interface Task {
+//     listId : string;
+//     task : [{taskId : string,
+//             taskTitle : string}]
+// }
 
 @Injectable()
 export class ListService {
 
 
-constructor(private http : HttpClient,private authService : AuthService) {
-    this.getPosts();
-}
+constructor(private http : HttpClient,private authService : AuthService) {}
 
-list = [];
+list : List[] = [];
+task : Task[] = [];
+
 id = [];
-task = [];
 
 
-public getPosts() {
-    this.list = [];
-    // this.id= [];
-    this.getList().subscribe(
-      res => {
-        for(var i in res) {
-          this.list.push(res[i].addList);
-          this.id.push(res[i]['_id']); 
-        }
-    this.getTasks();
+// public getPosts() {
+//     // this.list = [];
+//     this.getList().subscribe(
+//       res => {
+//         for(var i in res) {
+//            this.list.push({ listId : res[i]['_id'],addList : res[i].addList });
+//         } 
+//         return this.list;
+//         // this.getTasks();
 
-    })
-}
+//     })
+//     // console.log('list out in serv',this.list)
+// }
 
-getList() {
-    return this.http.get(environment.apiBaseUrl+'/list',
+// public getTasks() {   
+//     // this.task = [];
+//     // console.log(this.list[i]['listId'])
+//     // for(var i in this.list) { 
+//     this.getTask('5ea0288619985c30dcc3420a').subscribe(
+//       res => {
+//           console.log(res,'task');return;
+//         for(var index in res) {
+//             this.task.push({
+//                     _id : res[index]['_id'],
+//                 addList : res[index]['addTask'],
+//                 _listId : res[index]['_listId']
+//             });
+//             }    
+//     }
+//     );
+// // }
+// return this.task;
+// console.log([this.task,this.list,'task'])
+// }
+
+getList() : Observable<List[]> {
+    return this.http.get<List[]>(environment.apiBaseUrl+'/list',
             { headers: { Authorization: this.authService.getToken() }})            
 }
 
@@ -50,24 +83,8 @@ removeItem(id : string) {
     {  headers: { Authorization: this.authService.getToken() }   });
 }
 
-public getTasks() {   
-    this.task =[];
-
-    for(var i in this.id) { 
-
-    this.getTask(this.id[i]).subscribe(
-      res => {
-        for(var index in res) {
-          this.task.push(res[index]['addTask']);       
-        }
-        console.log(this.task);
-
-    })
-}
-}
-
-getTask(id : string) {
-    return this.http.get(environment.apiBaseUrl+'/list/'+id+'/tasks');            
+getTask(id : string) : Observable<Task[]> {
+    return this.http.get<Task[]>(environment.apiBaseUrl+'/getlist/'+id+'/tasks');            
 }
 
 addTask(data,id: string) {            
