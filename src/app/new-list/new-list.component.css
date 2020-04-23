@@ -95,3 +95,24 @@ mat-sidenav-content {
     background-color: #dadada;
     box-shadow: 2px 2px 7px #aaaaaa;
 }
+
+.toggle-btn {
+    margin-bottom: -36px;
+    float: right;
+}
+
+.form-control {
+    margin: -7px 0px;
+    width: 160px;
+}
+
+.task-list-item {
+    background-color: #eee;
+    display: block;
+    margin: 5px 0;
+    padding: 5px 0;
+}
+
+.task-list {
+    margin-top: 10px;
+}

@@ -13,23 +13,26 @@ constructor(private http : HttpClient,private authService : AuthService) {
 
 list = [];
 id = [];
+task = [];
 
 
 public getPosts() {
-    this.list =[];
+    this.list = [];
+    // this.id= [];
     this.getList().subscribe(
       res => {
         for(var i in res) {
           this.list.push(res[i].addList);
-          this.id.push(res[i]['_id']);          
+          this.id.push(res[i]['_id']); 
         }
+    this.getTasks();
+
     })
 }
 
 getList() {
     return this.http.get(environment.apiBaseUrl+'/list',
-            { headers: { Authorization: this.authService.getToken() }})
-            
+            { headers: { Authorization: this.authService.getToken() }})            
 }
 
 addItems(item : string) {               
@@ -37,7 +40,7 @@ addItems(item : string) {
     {  headers: { Authorization: this.authService.getToken() }   });      
 }
 
-updateItem(data : string,id: string) {
+updateItem(data,id: string) {
     return this.http.put(environment.apiBaseUrl+'/list/'+id,data,
     {  headers: { Authorization: this.authService.getToken() }   });
 }
@@ -45,6 +48,32 @@ updateItem(data : string,id: string) {
 removeItem(id : string) {
     return this.http.delete(environment.apiBaseUrl+'/list/'+id,
     {  headers: { Authorization: this.authService.getToken() }   });
+}
+
+public getTasks() {   
+    this.task =[];
+
+    for(var i in this.id) { 
+
+    this.getTask(this.id[i]).subscribe(
+      res => {
+        for(var index in res) {
+          this.task.push(res[index]['addTask']);       
+        }
+        console.log(this.task);
+
+    })
+}
+}
+
+getTask(id : string) {
+    return this.http.get(environment.apiBaseUrl+'/list/'+id+'/tasks');            
+}
+
+addTask(data,id: string) {            
+    return this.http.post(environment.apiBaseUrl+'/list/'+id+'/tasks', data, 
+    {  headers: { Authorization: this.authService.getToken() }   });      
+}
 }
 
 // toggleCompleted(index:number, status : boolean) {
@@ -71,4 +100,3 @@ removeItem(id : string) {
 //         }) 
 //     }   
 // }
-}

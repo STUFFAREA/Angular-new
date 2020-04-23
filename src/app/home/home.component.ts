@@ -25,8 +25,9 @@ export class HomeComponent implements OnInit {
 		}
     this.dialogRef.close(this.itemForm.value);
   }
+
   close() {
     this.dialogRef.close();
-}
+  }
 
 }

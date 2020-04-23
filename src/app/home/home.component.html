@@ -5,17 +5,14 @@
     <mat-form-field appearance="fill">
         <mat-label>Title</mat-label>
         <input matInput placeholder="New item..." formControlName="addList" #title (keyup.enter)="save()">
-
     </mat-form-field>
+
     <span *ngIf="itemForm.get('addList').touched && !itemForm.get('addList').valid" class="error-message">
         <p *ngIf="itemForm.get('addList').errors['required']">This field is required.</p>
-        <!-- <p *ngIf="itemForm.get('password').errors.serverError">
-            {{ itemForm.get('password').errors.serverError }}
-        </p> -->
     </span>
 </mat-dialog-content>
 
 <mat-dialog-actions>
-    <button class="mat-raised-button " (click)="close() ">Close</button>
-    <button class="mat-raised-button mat-primary " [disabled]="!itemForm.valid " (click)="save() ">Add</button>
+    <button class="mat-raised-button" (click)="close()">Close</button>
+    <button class="mat-raised-button mat-primary" [disabled]="!itemForm.valid" (click)="save()">Add</button>
 </mat-dialog-actions>

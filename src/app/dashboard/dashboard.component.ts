@@ -8,7 +8,7 @@ import { ListService } from '../shared/list.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: []
+  styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
 
@@ -42,21 +42,22 @@ export class DashboardComponent implements OnInit {
 
 openDialog() {
   const dialogConfig = new MatDialogConfig();
-  dialogConfig.disableClose = true;
-  dialogConfig.autoFocus = true;
+  dialogConfig.autoFocus = false;
   
   const dialogRef = this.dialog.open(HomeComponent, dialogConfig);
 
   dialogRef.afterClosed().subscribe(
       data => {
-        this.listService.addItems(data).subscribe(
-        res => {
-          // this.listService.getPosts();
-          console.log("success")
-        },
-        err => {
-          console.log("err")
-        });
+        if(data) {
+          this.listService.addItems(data).subscribe(
+            res => {
+              // this.listService.getPosts();
+              console.log("success")
+            },
+            err => {
+              console.log("err")
+            });
+        }        
       });
 }
 

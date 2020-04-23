@@ -1,6 +1,6 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ListService } from 'src/app/shared/list.service';
 
@@ -9,61 +9,85 @@ import { ListService } from 'src/app/shared/list.service';
   templateUrl: './new-list.component.html',
   styleUrls: ['./new-list.component.css']
 })
-export class NewListComponent implements OnInit,OnChanges {
+export class NewListComponent implements OnInit {
   
-  itemForm : FormGroup;
+  updateTitleForm : FormGroup;
+  taskForm :  FormGroup;
+
   list = [];
   id = [] ;
-  urlId: string;
+  task = [];
+  editIndex : number;
 
-  active :  boolean = false;
-  error : string = null;
-  successMsg : string = null;
-  editMode : boolean = false;
-  idByUrl : Subscription;
-  
   constructor(private listService: ListService ,private router : Router, private route: ActivatedRoute) {}
 
 	ngOnInit() {
-    console.log("i am newlit")
     // this.listService.getPosts();
+    // this.listService.getTasks();
 
     this.list = this.listService.list; 
-    this.itemForm = new FormGroup({
+    this.id = this.listService.id;
+
+    // this.task = this.listService.task; 
+    // console.log(this.listService.task, 'here')
+    this.updateTitleForm = new FormGroup({
 			'addList' : new FormControl(null,Validators.required)
     }); 
-    this.route.params.subscribe( (params : Params) => this.urlId = params['id'] );
+    this.taskForm = new FormGroup({
+			'addTask' : new FormControl(null)
+    }); 
 		   
   } 
-  ngOnChanges() {
-    this.ngOnInit();
-  }
-
-editItem(id : number,title : string) {  
-  this.active=true;
-  this.editMode = true;     
-  this.error = null;
-  this.successMsg = null;
-  this.itemForm.patchValue({ addList: title });  
-        for(var i in this.id) { 
-          if(+i === +id){
-            this.router.navigate(['/dashboard','new-list',this.id[i]])  
-          }              
-        }     
-}
 
 removeItem(id:number) {
   for(var i in this.id) { 
     if(+i === +id){
       this.listService.removeItem(this.id[i]).subscribe(
         res => {
-        this.itemForm.reset();
-        this.listService.getPosts();
+      this.listService.getPosts();
+      this.list = this.listService.list; 
+      this.id = this.listService.id;
+      }); 
+    }  
+  }
+}
+
+editListTitle(i : number) {
+  this.editIndex = i; 
+}
+
+update(title : string) {
+  for(var index in this.id) { 
+    var data = {
+      'addList' : title
+    }
+    if(+index === +this.editIndex){
+      this.listService.updateItem(data,this.id[index]).subscribe(
+        res => {
+
+          this.listService.getPosts();    
+          this.list = this.listService.list; 
+          this.id = this.listService.id;
         }
-      ); 
-  }  
+      );
+    }              
+  }    
+  this.editIndex = null;
 }
-}
-
-
+// editTaskTitle(i : number) {
+//   this.editIndex = i; 
+// }
+addTask(i : number) {
+  for(var index in this.id) { 
+    if(+index === +i){
+      this.listService.addTask(this.taskForm.value,this.id[i]).subscribe(
+        res => {
+          console.log(res,'task added');
+        },
+        err => {
+          console.log(err, 'error')
+        })
+      }          
+    }
+  }
 }
