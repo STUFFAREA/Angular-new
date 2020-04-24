@@ -13,7 +13,8 @@ import { Task } from '../shared/task';
 })
 export class NewListComponent implements OnInit {
   
-  updateTitleForm : FormGroup;
+  updateListTitleForm : FormGroup;
+  updateTaskTitleForm : FormGroup;
   taskForm :  FormGroup;
 
   list : List[];
@@ -21,15 +22,23 @@ export class NewListComponent implements OnInit {
 
   id = [] ;
 
-  editIndex : number;
+  editListIndex : number;
+  editTaskIndex : string;
 
-  constructor(private listService: ListService ,private router : Router, private route: ActivatedRoute) {}
+  constructor(private listService: ListService ,private router : Router, private route: ActivatedRoute) {
+    console.log("I am new lits const")
+  }
 
 	ngOnInit() {    
+    console.log("I am new lits ngononint")
+
     this.getList();
     
-    this.updateTitleForm = new FormGroup({
+    this.updateListTitleForm = new FormGroup({
 			'addList' : new FormControl(null,Validators.required)
+    }); 
+    this.updateTaskTitleForm = new FormGroup({
+			'addTask' : new FormControl(null,Validators.required)
     }); 
     this.taskForm = new FormGroup({
 			'addTask' : new FormControl(null)
@@ -55,12 +64,11 @@ export class NewListComponent implements OnInit {
       })
   }
 
-  removeItem(id:number) {
+  removeList(id:number) {
     for(var i in this.id) { 
       if(+i === +id){
         this.listService.removeItem(this.id[i]).subscribe(
           res => {
-        // this.listService.getPosts();
         this.list = this.listService.list; 
         this.id = this.listService.id;
         }); 
@@ -68,8 +76,15 @@ export class NewListComponent implements OnInit {
     }
   }
 
+  removeTask(taskId : string) {    
+    this.listService.removeTask(taskId).subscribe(
+      res => {
+        this.task = this.task.filter(f => f._id !== taskId)
+    }); 
+  }
+
   editListTitle(i : number) {
-    this.editIndex = i; 
+    this.editListIndex = i; 
   }
 
   update(title : string,listId : string) {    
@@ -81,12 +96,24 @@ export class NewListComponent implements OnInit {
           const index = this.list.findIndex(h => (h._id === listId))
           this.list[index]['addList'] = title;
         }); 
-    this.editIndex = null;
+    this.editListIndex = null;
   }
+  updateTask(title : string,taskId : string){
+    var data = {
+      'addTask' : title
+    }
+    this.listService.updateTask(data,taskId).subscribe(
+      res => {
+        const index = this.task.findIndex(h => (h._id === taskId))
+        this.task[index]['addTask'] = title;
+      }); 
+  this.editTaskIndex = null;
+  }
+  editTaskTitle(i : string) {
+    this.editTaskIndex = i; 
+    console.log(this.editTaskIndex)
 
-  // editTaskTitle(i : number) {
-  //   this.editIndex = i; 
-  // }
+  }
 
   addTask(id : string) {
         this.listService.addTask(this.taskForm.value,id).subscribe(

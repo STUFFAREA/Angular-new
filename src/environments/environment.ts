@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: 'http://localhost:3000/api/user'
+  apiBaseUrl: 'https://todo-list-task-node.herokuapp.com/api/user'
 
 };
 

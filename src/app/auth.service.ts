@@ -82,13 +82,13 @@ export class AuthService {
 	}
 
 	public profile() { 
-		return this.http.get('http://localhost:3000/api/post',{		 
+		return this.http.get(environment.apiBaseUrl+'/post/',{		 
 					headers: { Authorization: this.getToken() }		 
 					})
 	}
 
 	public getPost() { 
-		this.http.get('http://localhost:3000/api/post',{		 
+		this.http.get(environment.apiBaseUrl+'/post/',{		 
 		headers: { Authorization: this.getToken() }		 
 		}).subscribe(
 			res => {

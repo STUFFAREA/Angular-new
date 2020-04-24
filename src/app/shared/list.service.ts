@@ -78,11 +78,19 @@ updateItem(data,id: string) {
     {  headers: { Authorization: this.authService.getToken() }   });
 }
 
+updateTask(data,id: string) {    
+    console.log(data,id)
+    return this.http.put(environment.apiBaseUrl+'/list/tasks/'+id,data,
+    {  headers: { Authorization: this.authService.getToken() }   });
+}
 removeItem(id : string) {
     return this.http.delete(environment.apiBaseUrl+'/list/'+id,
     {  headers: { Authorization: this.authService.getToken() }   });
 }
-
+removeTask(id : string) {
+    return this.http.delete(environment.apiBaseUrl+'/list/tasks/'+id,
+    {  headers: { Authorization: this.authService.getToken() }   });
+}
 getTask(id : string) : Observable<Task[]> {
     return this.http.get<Task[]>(environment.apiBaseUrl+'/list/'+id+'/tasks');            
 }

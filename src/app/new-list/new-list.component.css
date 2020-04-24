@@ -120,3 +120,14 @@ mat-sidenav-content {
 mat-panel-title {
     font-weight: 600;
 }
+
+.remove-task {
+    display: none;
+    padding: 0 5px;
+    font-weight: 300;
+    cursor: pointer;
+}
+
+.task-list-item:hover .remove-task {
+    display: block;
+}
