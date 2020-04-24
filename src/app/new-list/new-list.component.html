@@ -48,7 +48,7 @@
 
                         <form *ngIf="i===editIndex" [formGroup]="updateTitleForm">
                             <!-- <mat-form-field> -->
-                            <input value="{{ item.addList }}" class="form-control" #addList (keyup.enter)="update(addList.value)" (blur)="update(addList.value)">
+                            <input value="{{ item.addList }}" class="form-control" #addList (keyup.enter)="update(addList.value,item._id)" (blur)="update(addList.value,item._id)">
                             <!-- </mat-form-field> -->
                             <span *ngIf="updateTitleForm.get('addList').touched && !updateTitleForm.get('addList').valid" class="error-message">
                                 <p *ngIf="updateTitleForm.get('addList').errors['required']">This field is required.</p>

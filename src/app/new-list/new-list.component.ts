@@ -39,7 +39,6 @@ export class NewListComponent implements OnInit {
   getList() {
     this.listService.getList().subscribe(
       res => {
-        console.log(res,'getList')
         this.list = res;
         for(var i in res) {
           this.getTask(res[i]['_id']);
@@ -73,23 +72,18 @@ export class NewListComponent implements OnInit {
     this.editIndex = i; 
   }
 
-  update(title : string) {
-    for(var index in this.id) { 
+  update(title : string,listId : string) {    
       var data = {
         'addList' : title
       }
-      if(+index === +this.editIndex){
-        this.listService.updateItem(data,this.id[index]).subscribe(
-          res => {
-            // this.listService.getPosts();    
-            this.list = this.listService.list; 
-            this.id = this.listService.id;
-          }
-        );
-      }              
-    }    
+      this.listService.updateItem(data,listId).subscribe(
+        res => {
+          const index = this.list.findIndex(h => (h._id === listId))
+          this.list[index]['addList'] = title;
+        }); 
     this.editIndex = null;
   }
+
   // editTaskTitle(i : number) {
   //   this.editIndex = i; 
   // }
@@ -98,7 +92,7 @@ export class NewListComponent implements OnInit {
         this.listService.addTask(this.taskForm.value,id).subscribe(
           res => {
             console.log(res);
-            this.task.push({_id : 'id',addTask : this.taskForm.value.addTask ,_listId : id});
+            this.task.push({_id : res['savedTask']['_id'],addTask : this.taskForm.value.addTask ,_listId : id});
             this.taskForm.reset();
           },
           err => {
