@@ -17,7 +17,7 @@ export class NewListComponent implements OnInit {
   taskForm :  FormGroup;
 
   list : List[];
-  task : Task[];
+  task : Task[] = [];
 
   id = [] ;
 
@@ -39,17 +39,19 @@ export class NewListComponent implements OnInit {
   getList() {
     this.listService.getList().subscribe(
       res => {
+        console.log(res,'getList')
         this.list = res;
         for(var i in res) {
           this.getTask(res[i]['_id']);
         }
       })
   }
-  getTask(id : string) {
-    this.listService.getTask('5ea0288619985c30dcc3420a').subscribe(
-      res => {        
-        this.task = res;
-        console.log(res);
+  getTask(id : string) {    
+    this.listService.getTask(id).subscribe(
+      res => {  
+        for(var i in res) {
+        this.task.push({_id : res[i]['_id'],addTask : res[i]['addTask'],_listId : res[i]['_listId']});
+        }
         // "5ea0288619985c30dcc3420a"
       })
   }
@@ -95,9 +97,9 @@ export class NewListComponent implements OnInit {
   addTask(id : string) {
         this.listService.addTask(this.taskForm.value,id).subscribe(
           res => {
-            console.log(res,'task added');
+            console.log(res);
+            this.task.push({_id : 'id',addTask : this.taskForm.value.addTask ,_listId : id});
             this.taskForm.reset();
-            this.getTask(id);
           },
           err => {
             console.log(err, 'error')

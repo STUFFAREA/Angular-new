@@ -19,14 +19,14 @@
                             </mat-expansion-panel-header>
 
                             <mat-list>
-                                <div *ngFor="let item of list;let i = index" class="list-item">
-                                    <mat-list-item>
+                                <div *ngFor="let taskitem of task;let i = index" class="list-item">
+                                    <mat-list-item *ngIf="item._id===taskitem._listId">
                                         <p class="remove-item">
-                                            <span class="pull-left"> {{ item.addList }} </span>
+                                            <span class="pull-left"> {{ taskitem.addTask }} </span>
                                             <span class="pull-right remove-item" (click)="removeItem(i)"> X </span>
                                         </p>
+                                        <mat-divider></mat-divider>
                                     </mat-list-item>
-                                    <mat-divider></mat-divider>
                                 </div>
                             </mat-list>
                         </mat-expansion-panel>
@@ -48,7 +48,7 @@
 
                         <form *ngIf="i===editIndex" [formGroup]="updateTitleForm">
                             <!-- <mat-form-field> -->
-                            <input value="{{ item }}" class="form-control" #addList (keyup.enter)="update(addList.value)" (blur)="update(addList.value)">
+                            <input value="{{ item.addList }}" class="form-control" #addList (keyup.enter)="update(addList.value)" (blur)="update(addList.value)">
                             <!-- </mat-form-field> -->
                             <span *ngIf="updateTitleForm.get('addList').touched && !updateTitleForm.get('addList').valid" class="error-message">
                                 <p *ngIf="updateTitleForm.get('addList').errors['required']">This field is required.</p>
@@ -59,7 +59,7 @@
 
                 <mat-divider></mat-divider>
 
-                <mat-card-content class="task-list">
+                <mat-card-content *ngIf="task" class="task-list">
                     <div *ngFor="let taskitem of task;let i = index">
                         <span *ngIf="item._id===taskitem._listId" class="task-list-item"> {{ taskitem.addTask }}</span>
                     </div>

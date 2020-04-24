@@ -84,7 +84,7 @@ removeItem(id : string) {
 }
 
 getTask(id : string) : Observable<Task[]> {
-    return this.http.get<Task[]>(environment.apiBaseUrl+'/getlist/'+id+'/tasks');            
+    return this.http.get<Task[]>(environment.apiBaseUrl+'/list/'+id+'/tasks');            
 }
 
 addTask(data,id: string) {            
