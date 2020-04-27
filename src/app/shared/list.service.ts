@@ -95,9 +95,19 @@ getTask(id : string) : Observable<Task[]> {
     return this.http.get<Task[]>(environment.apiBaseUrl+'/list/'+id+'/tasks');            
 }
 
-addTask(data,id: string) {            
-    return this.http.post(environment.apiBaseUrl+'/list/'+id+'/tasks', data, 
+addTask(data,id: string, orderId : number) {            
+    return this.http.post(environment.apiBaseUrl+'/list/'+id+'/tasks/'+orderId, data, 
     {  headers: { Authorization: this.authService.getToken() }   });      
+}
+updateTaskOrder(data,listId : string, orderId : number) {
+    console.log(listId,orderId)
+    return this.http.post(environment.apiBaseUrl+'/list/'+listId+'/tasks/'+orderId,data,
+    {  headers: { Authorization: this.authService.getToken() }   }); 
+}
+removeList(listId : string) {
+    return this.http.delete(environment.apiBaseUrl+'/list/'+listId,
+    {  headers: { Authorization: this.authService.getToken() }   }); 
+
 }
 }
 

@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
 import { ListService } from 'src/app/shared/list.service';
-import { List } from 'src/app/shared/list';
+import { List } from '../shared/list';
 import { Task } from '../shared/task';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-new-list',
@@ -19,18 +18,19 @@ export class NewListComponent implements OnInit {
 
   list : List[];
   task : Task[] = [];
+  connectedTo = [];
 
   id = [] ;
 
   editListIndex : number;
   editTaskIndex : string;
 
-  constructor(private listService: ListService ,private router : Router, private route: ActivatedRoute) {
-    console.log("I am new lits const")
+  constructor(private listService: ListService) {
+    
   }
 
 	ngOnInit() {    
-    console.log("I am new lits ngononint")
+    console.log("I am new list")
 
     this.getList();
     
@@ -51,6 +51,7 @@ export class NewListComponent implements OnInit {
         this.list = res;
         for(var i in res) {
           this.getTask(res[i]['_id']);
+          this.connectedTo.push(res[i]['_id']);            
         }
       })
   }
@@ -64,17 +65,6 @@ export class NewListComponent implements OnInit {
       })
   }
 
-  removeList(id:number) {
-    for(var i in this.id) { 
-      if(+i === +id){
-        this.listService.removeItem(this.id[i]).subscribe(
-          res => {
-        this.list = this.listService.list; 
-        this.id = this.listService.id;
-        }); 
-      }  
-    }
-  }
 
   removeTask(taskId : string) {    
     this.listService.removeTask(taskId).subscribe(
@@ -116,7 +106,8 @@ export class NewListComponent implements OnInit {
   }
 
   addTask(id : string) {
-        this.listService.addTask(this.taskForm.value,id).subscribe(
+    var orderId = this.task.length;
+        this.listService.addTask(this.taskForm.value,id,orderId).subscribe(
           res => {
             console.log(res);
             this.task.push({_id : res['savedTask']['_id'],addTask : this.taskForm.value.addTask ,_listId : id});
@@ -125,5 +116,32 @@ export class NewListComponent implements OnInit {
           err => {
             console.log(err, 'error')
           })
-        }  
+        }
+        
+drop(event: CdkDragDrop<string[]>,listId : string) {
+  if (event.previousContainer === event.container) {
+    moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+  } else {
+    transferArrayItem(event.previousContainer.data,
+                      event.container.data,
+                      event.previousIndex,
+                      event.currentIndex);
+
   }
+    console.log('here')
+    var data = {
+      'addTask' : event.container['data'][event.currentIndex]['addTask']
+    }
+  
+  this.listService.updateTaskOrder(data, listId,event.currentIndex).subscribe(
+    res =>{console.log("updated")});
+}
+removeList(listId : string) {
+  this.listService.removeList(listId).subscribe(
+    res => {
+      this.list = this.list.filter(f => f._id !== listId)      
+    }
+  )
+}
+
+}
