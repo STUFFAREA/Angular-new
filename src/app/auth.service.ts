@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserData } from './user.model';
 import { environment } from '../environments/environment';
-import { map, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 
@@ -40,9 +39,6 @@ export class AuthService {
 		localStorage.setItem('isLogin','true')
 	}
 
-	// get isLoggedIn() {
-	// 	return JSON.parse(localStorage.getItem('isLogin') || this.isLogIn.toString());
-	// }
 	public isLoggedIn(): boolean {      
 		let status = false;      
 		if (localStorage.getItem('isLogin') == "true") {      

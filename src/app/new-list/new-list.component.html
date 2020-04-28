@@ -15,7 +15,6 @@
                                 <mat-panel-title>
                                     {{ item.addList }}
                                 </mat-panel-title>
-                                <!-- <span class="remove-item" (click)="removeItem(i)"> X </span> -->
                             </mat-expansion-panel-header>
 
                             <mat-list>
@@ -44,10 +43,8 @@
             <mat-card class="list-card">
                 <mat-card-header>
                     <mat-card-title (dblclick)="editListTitle(i)">
-                        <span class="task-list-head">
-                        <span *ngIf="i!==editListIndex" class="pull-left"> {{ item.addList }}</span>
+                        <span *ngIf="i!==editListIndex"> {{ item.addList }}</span>
                         <span class="pull-right remove-list" (click)="removeList(item._id)"> X </span>
-                        </span>
                         <form *ngIf="i===editListIndex" [formGroup]="updateListTitleForm">
                             <input value="{{ item.addList }}" class="form-control" #addList (keyup.enter)="update(addList.value,item._id)" (blur)="update(addList.value,item._id)">
                             <span *ngIf="updateListTitleForm.get('addList').touched && !updateListTitleForm.get('addList').valid" class="error-message">
@@ -79,10 +76,7 @@
                         <form [formGroup]="taskForm">
                             <mat-form-field>
                                 <mat-label>+ New Task</mat-label>
-                                <!-- <input value="{{ item }}" class="form-control" #addList (keyup.enter)="update(addList.value)" (blur)="update(addList.value)"> -->
                                 <input matInput formControlName="addTask" (keyup.enter)="addTask(item._id)" autocomplete="off">
-                                <!-- <span class=" glyphicon glyphicon-pencil pull-right "></span> -->
-
                                 <span *ngIf="updateListTitleForm.get('addList').touched && !updateListTitleForm.get('addList').valid" class="error-message">
                                 <p *ngIf="updateListTitleForm.get('addList').errors['required']">This field is required.</p>
                             </span>

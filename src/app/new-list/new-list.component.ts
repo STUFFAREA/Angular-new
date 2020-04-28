@@ -16,10 +16,10 @@ export class NewListComponent implements OnInit {
   updateTaskTitleForm : FormGroup;
   taskForm :  FormGroup;
 
-  list : List[];
+  list : List[] = [];
   task : Task[] = [];
   connectedTo = [];
-
+  
   id = [] ;
 
   editListIndex : number;
@@ -46,6 +46,7 @@ export class NewListComponent implements OnInit {
   }
 
   getList() {
+    this.task = []
     this.listService.getList().subscribe(
       res => {
         this.list = res;
@@ -143,5 +144,4 @@ removeList(listId : string) {
     }
   )
 }
-
 }

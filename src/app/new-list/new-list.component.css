@@ -61,12 +61,11 @@ input.ng-invalid.ng-touched {
 
 .list-item p {
     padding-left: 10px;
-    /* margin-top: -10px; */
 }
 
 mat-sidenav-container {
     margin-top: -20px;
-    height: auto;
+    height: 41.9pc;
 }
 
 .tp-container {
@@ -105,8 +104,7 @@ mat-sidenav-content {
 }
 
 .form-control {
-    margin: -7px 0px;
-    width: 160px;
+    width: 150px;
 }
 
 .task-list-item {
@@ -122,14 +120,20 @@ mat-sidenav-content {
     cursor: move;
 }
 
-.task-list-head {
-    padding: 5px 10px;
-    margin: 5px 0;
-    color: rgba(0, 0, 0, 0.87);
+:host /deep/ .mat-card-header-text {
+    width: 100%!important;
+}
+
+:host /deep/ .mat-card-header {
+    display: contents !important;
+}
+
+.cdk-drop-list {
+    margin-top: 30px;
 }
 
 .remove-list {
-    padding-left: 70px;
+    padding: 0 10px;
     font-weight: 300;
     cursor: pointer;
     font-size: 15px;
