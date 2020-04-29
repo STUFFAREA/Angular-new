@@ -14,12 +14,7 @@ const routes: Routes = [
 {  path : '' ,redirectTo :'/login', pathMatch:'full' }, 
 {  path : 'login' ,component :LoginComponent }, 
 {  path : 'register' ,component :RegisterComponent }, 
-{  path : 'dashboard' , canActivate: [AuthGuard] , component :DashboardComponent, children : [
-  { path : '' , component :NewListComponent } ,
-  { path : 'new-list', component: NewListComponent},   
-  { path : 'new-list/:id', component: NewListComponent},   
-  { path : 'profile' , component :EditProfileComponent }   
-]}, 
+{  path : 'dashboard' , canActivate: [AuthGuard] , component :DashboardComponent}, 
 {  path : '**' , component : PagenotfoundComponent }
 ];
 

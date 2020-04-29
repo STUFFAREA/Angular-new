@@ -19,6 +19,7 @@ import { ListService } from './shared/list.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoMaterialModule } from './material-module';
 import { NewListComponent } from './new-list/new-list.component';
+import { EditPasswordComponent } from './edit-password/edit-password.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { NewListComponent } from './new-list/new-list.component';
     LoadingSpinnerComponent,
     EditProfileComponent,
     HomeComponent,
-    NewListComponent
+    NewListComponent,
+    EditPasswordComponent
   ],
   imports: [
     BrowserModule,

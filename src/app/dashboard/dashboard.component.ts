@@ -5,6 +5,8 @@ import { HomeComponent } from '../home/home.component';
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import { ListService } from '../shared/list.service';
 import { NewListComponent } from '../new-list/new-list.component';
+import { EditProfileComponent } from '../edit-profile/edit-profile.component';
+import { EditPasswordComponent } from '../edit-password/edit-password.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -41,7 +43,7 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-openDialog() {
+  openAddDialog() {
   const dialogConfig = new MatDialogConfig();
   dialogConfig.autoFocus = false;
   
@@ -59,5 +61,31 @@ openDialog() {
             });
         }        
       });
+}
+editProfileDialog(){
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.autoFocus = false;
+  
+  const dialogRef = this.dialog.open(EditProfileComponent, dialogConfig);
+
+  // dialogRef.afterClosed().subscribe(
+  //     data => {
+  //       if(data) {
+  //         this.listService.addItems(data).subscribe(
+  //           res => {
+  //             this.newListComponent.getList()
+  //           },
+  //           err => {
+  //             console.log(err)
+  //           });
+  //       }        
+  //     });
+  // }
+}
+changePasswordDialog() {
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.autoFocus = false;
+  
+  const dialogRef = this.dialog.open(EditPasswordComponent,dialogConfig);
 }
 }
