@@ -7,7 +7,7 @@ import { ListService } from '../shared/list.service';
 import { NewListComponent } from '../new-list/new-list.component';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 import { EditPasswordComponent } from '../edit-password/edit-password.component';
-// import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,7 +32,8 @@ export class DashboardComponent implements OnInit {
     private authService : AuthService,
     private router: Router,
     private dialog: MatDialog, 
-    private listService : ListService
+    private listService : ListService,
+    private _snackBar: MatSnackBar
     ) { }
 
   ngOnInit(): void {
@@ -74,7 +75,8 @@ export class DashboardComponent implements OnInit {
         if(data) {
           this.listService.addItems(data).subscribe(
             res => {
-              this.newListComponent.getList()
+              this.newListComponent.getList();
+              this.openSnackBar("Added successfully !");
             },
             err => {
               console.log(err)
@@ -103,7 +105,7 @@ const dialogRef = this.dialog.open(EditProfileComponent, dialogConfig);
           this.listService.updateProfile(data).subscribe(
             res => {
               this.getUsername();
-              // this.openSnackBar("Updated successfully !");
+              this.openSnackBar("Updated successfully !");
             },
             err => {
               console.log(err)
@@ -111,11 +113,11 @@ const dialogRef = this.dialog.open(EditProfileComponent, dialogConfig);
         }        
       });
   }
-  // openSnackBar(message: string) {
-  //   this._snackBar.open(message, '', {
-  //     duration: 2000,
-  //   });
-  // }
+openSnackBar(message: string) {
+  this._snackBar.open(message, '', {
+    duration: 2000,
+  });
+}
 changePasswordDialog() {
   const dialogConfig = new MatDialogConfig();
   dialogConfig.autoFocus = false;
