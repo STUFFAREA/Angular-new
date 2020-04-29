@@ -16,7 +16,8 @@
                 <li><a (click)="openAddDialog()">+</a></li>
 
                 <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user"></span> <span class="caret"></span></a>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-user">
+                    {{username}}</span> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a (click)="editProfileDialog()">Edit profile</a></li>
                         <li><a (click)="changePasswordDialog()">Edit password</a></li>

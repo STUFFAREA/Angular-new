@@ -43,6 +43,7 @@ import { EditPasswordComponent } from './edit-password/edit-password.component';
     BrowserAnimationsModule,
     DemoMaterialModule
   ],
+  entryComponents: [EditProfileComponent],
   providers: [AuthGuard,
               ListService
               // {provide : HTTP_INTERCEPTORS,

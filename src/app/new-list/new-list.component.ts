@@ -107,8 +107,7 @@ export class NewListComponent implements OnInit {
   }
 
   addTask(id : string) {
-    var orderId = this.task.length;
-        this.listService.addTask(this.taskForm.value,id,orderId).subscribe(
+        this.listService.addTask(this.taskForm.value,id).subscribe(
           res => {
             console.log(res);
             this.task.push({_id : res['savedTask']['_id'],addTask : this.taskForm.value.addTask ,_listId : id});
@@ -134,7 +133,7 @@ drop(event: CdkDragDrop<string[]>,listId : string) {
       'addTask' : event.container['data'][event.currentIndex]['addTask']
     }
   
-  this.listService.updateTaskOrder(data, listId,event.currentIndex).subscribe(
+  this.listService.updateTaskOrder(data, listId).subscribe(
     res =>{console.log("updated")});
 }
 removeList(listId : string) {

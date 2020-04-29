@@ -8,11 +8,11 @@
 
             <div class="form-group">
                 <label>Username</label>
-                <input type="text" class="form-control" formControlName="name">
-                <span *ngIf="!form.get('name').valid && form.get('name').touched" class="error-message">
-                    <p *ngIf="form.get('name').errors['required']">This field is required.</p>
-                    <p *ngIf="form.get('name').errors?.serverError">
-                        {{ form.get('name').errors.serverError }}
+                <input type="text" class="form-control" formControlName="username">
+                <span *ngIf="!form.get('username').valid && form.get('username').touched" class="error-message">
+                    <p *ngIf="form.get('username').errors['required']">This field is required.</p>
+                    <p *ngIf="form.get('username').errors?.serverError">
+                        {{ form.get('username').errors.serverError }}
                     </p>
                 </span>
             </div>

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-edit-profile',
@@ -16,19 +17,24 @@ profession: string[] = ['Student','Employee','Other'];
 minDate: Date;
 maxDate: Date;
 
-  constructor(private dialogRef: MatDialogRef<EditProfileComponent>) {
+
+  constructor(private dialogRef: MatDialogRef<EditProfileComponent>, 
+    @Inject(MAT_DIALOG_DATA) private data : any)  {
+
     const currentYear = new Date().getFullYear();
-    this.minDate = new Date(currentYear - 20, 0, 1);
-    this.maxDate = new Date(currentYear + 1, 11, 31);
+    this.minDate = new Date(currentYear - 40, 0, 1);
+    this.maxDate = new Date(currentYear - 10, 11, 31);
   }
 
 	ngOnInit(): void {
 		this.editProfileForm = new FormGroup({
-			'username' : new FormControl(null,[Validators.required]),
-			'lastName' : new FormControl(null,[Validators.required]),
-			'gender' : new FormControl(null,[Validators.required]),
-			'phonenum' : new FormControl(null,[Validators.required]),
-			'profession' : new FormControl(null,[Validators.required]),
+			'username' : new FormControl(this.data ? this.data.username :  null,[Validators.required]),
+			'firstName' : new FormControl(this.data ? this.data.firstName :  null,[Validators.required]),
+			'lastName' : new FormControl(this.data ? this.data.lastName :  null,[Validators.required]),
+			'gender' : new FormControl(this.data ? this.data.gender : null,[Validators.required]),
+			'DOB' : new FormControl(this.data ? this.data.DOB : null,[Validators.required]),
+			'phoneNum' : new FormControl(this.data ? this.data.phoneNum : null,[Validators.required]),
+			'profession' : new FormControl(this.data ? this.data.profession : null,[Validators.required]),
 		});
   }
   
@@ -69,9 +75,11 @@ maxDate: Date;
   }
   
   save() {
-    if(!this.editProfileForm.valid) {
-			return;
-		}
+
+    // console.log(this.editProfileForm.value,formattedDate);
+    // if(!this.editProfileForm.valid) {
+		// 	return;
+		// }
     this.dialogRef.close(this.editProfileForm.value);
   }
 

@@ -3,9 +3,17 @@
 
     <form [formGroup]="editProfileForm">
         <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <mat-form-field>
+                    <input matInput placeholder="Username" formControlName="username" readonly>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-md-6 col-sm-6">
                 <mat-form-field>
-                    <input matInput placeholder="First name" formControlName="username" autocomplete="off">
+                    <input matInput placeholder="First name" formControlName="firstName" autocomplete="off">
                 </mat-form-field>
             </div>
 
@@ -20,15 +28,15 @@
             <div class="col-md-6 col-sm-6">
                 <mat-form-field>
                     <mat-label>Choose a date</mat-label>
-                    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker">
+                    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" formControlName="DOB">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-datepicker #picker startView="multi-year"></mat-datepicker>
                 </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-6">
                 <mat-label>Gender: </mat-label>
-                <mat-radio-group class="tp-radio-group" [formControl]="gender">
+                <mat-radio-group class="tp-radio-group" formControlName="gender">
                     <mat-radio-button class="tp-radio-button" *ngFor="let gender_list of gender" [value]="gender_list">
                         {{gender_list}}
                     </mat-radio-button>
@@ -40,13 +48,13 @@
             <div class="col-md-6 col-sm-6">
                 <mat-form-field>
                     <mat-label>Phone number</mat-label>
-                    <input matInput formControlName="phonenum" autocomplete="off">
+                    <input matInput formControlName="phoneNum" autocomplete="off">
                 </mat-form-field>
             </div>
 
             <div class="col-md-6 col-sm-6">
                 <mat-label>Profession: </mat-label>
-                <mat-radio-group class="tp-radio-group" [formControl]="profession">
+                <mat-radio-group class="tp-radio-group" formControlName="profession">
                     <mat-radio-button class="tp-radio-button" *ngFor="let pro of profession" [value]="pro">
                         {{pro}}
                     </mat-radio-button>

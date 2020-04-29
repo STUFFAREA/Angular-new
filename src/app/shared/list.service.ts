@@ -95,17 +95,24 @@ getTask(id : string) : Observable<Task[]> {
     return this.http.get<Task[]>(environment.apiBaseUrl+'/list/'+id+'/tasks');            
 }
 
-addTask(data,id: string, orderId : number) {            
-    return this.http.post(environment.apiBaseUrl+'/list/'+id+'/tasks/'+orderId, data, 
+addTask(data,id: string) {            
+    return this.http.post(environment.apiBaseUrl+'/list/'+id+'/tasks', data, 
     {  headers: { Authorization: this.authService.getToken() }   });      
 }
-updateTaskOrder(data,listId : string, orderId : number) {
-    console.log(listId,orderId)
-    return this.http.post(environment.apiBaseUrl+'/list/'+listId+'/tasks/'+orderId,data,
+updateTaskOrder(data,listId : string) {
+    return this.http.post(environment.apiBaseUrl+'/list/'+listId+'/tasks',data,
     {  headers: { Authorization: this.authService.getToken() }   }); 
 }
 removeList(listId : string) {
     return this.http.delete(environment.apiBaseUrl+'/list/'+listId,
+    {  headers: { Authorization: this.authService.getToken() }   }); 
+}
+getUserProfile() {
+    return this.http.get(environment.apiBaseUrl+'/profile',
+    {  headers: { Authorization: this.authService.getToken() }   }); 
+}
+updateProfile(data) {
+    return this.http.put(environment.apiBaseUrl+'/profile/update',data,
     {  headers: { Authorization: this.authService.getToken() }   }); 
 
 }
