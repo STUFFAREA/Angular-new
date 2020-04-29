@@ -100,8 +100,6 @@ const dialogRef = this.dialog.open(EditProfileComponent, dialogConfig);
   dialogRef.afterClosed().subscribe(
       data => {
         if(data) {
-         data.DOB ? data.DOB = data.DOB.toISOString(): '';
-
           this.listService.updateProfile(data).subscribe(
             res => {
               this.getUsername();
