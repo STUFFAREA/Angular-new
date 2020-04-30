@@ -29,12 +29,12 @@ maxDate: Date;
 	ngOnInit(): void {
 		this.editProfileForm = new FormGroup({
 			'username' : new FormControl(this.data ? this.data.username :  null,[Validators.required]),
-			'firstName' : new FormControl(this.data ? this.data.firstName :  null,[Validators.required]),
-			'lastName' : new FormControl(this.data ? this.data.lastName :  null,[Validators.required]),
-			'gender' : new FormControl(this.data ? this.data.gender : null,[Validators.required]),
-			'DOB' : new FormControl(this.data ? this.data.DOB : null,[Validators.required]),
-			'phoneNum' : new FormControl(this.data ? this.data.phoneNum : null,[Validators.required]),
-			'profession' : new FormControl(this.data ? this.data.profession : null,[Validators.required]),
+			'firstName' : new FormControl(this.data ? this.data.firstName :  null),
+			'lastName' : new FormControl(this.data ? this.data.lastName :  null),
+			'gender' : new FormControl(this.data ? this.data.gender : null),
+			'DOB' : new FormControl(this.data ? this.data.DOB : null),
+			'phoneNum' : new FormControl(this.data ? this.data.phoneNum : null),
+			'profession' : new FormControl(this.data ? this.data.profession : null),
 		});
   }
   
@@ -75,11 +75,9 @@ maxDate: Date;
   }
   
   save() {
-
-    // console.log(this.editProfileForm.value,formattedDate);
-    // if(!this.editProfileForm.valid) {
-		// 	return;
-		// }
+    if(!this.editProfileForm.valid) {
+			return;
+		}
     this.dialogRef.close(this.editProfileForm.value);
   }
 

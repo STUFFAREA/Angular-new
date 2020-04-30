@@ -123,5 +123,15 @@ changePasswordDialog() {
   dialogConfig.autoFocus = false;
   
   const dialogRef = this.dialog.open(EditPasswordComponent,dialogConfig);
-}
+
+  dialogRef.afterClosed().subscribe(
+    data => {
+      if(data) {
+        this.authService.changePassword(data).subscribe(
+          res => {
+            this.openSnackBar("Password updated successfully !");
+          });
+        }
+    });
+  }
 }
