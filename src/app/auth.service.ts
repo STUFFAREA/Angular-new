@@ -115,7 +115,14 @@ export class AuthService {
 		headers: { Authorization: this.getToken() }		 
 		})
 	}
-
+	forgetPassword(postData) {
+		return this.http.post(environment.apiBaseUrl+'/forgot_password', postData, {		 
+		headers: { Authorization: this.getToken() }		 
+		})
+	}
+	resetPassword(postData,urlId) {
+		return this.http.post(environment.apiBaseUrl+'/reset_password/'+urlId, postData)
+	}
 	onLogout() {
 		return this.http.post(environment.apiBaseUrl+'/signout','', {		 
 		headers: { Authorization: this.getToken() }		 

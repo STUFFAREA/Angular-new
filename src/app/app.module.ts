@@ -18,8 +18,11 @@ import { HomeComponent } from './home/home.component';
 import { ListService } from './shared/list.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DemoMaterialModule } from './material-module';
-import { NewListComponent } from './new-list/new-list.component';
+import { NewListComponent } from './new-list/new-list.component'; 
 import { EditPasswordComponent } from './edit-password/edit-password.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,9 @@ import { EditPasswordComponent } from './edit-password/edit-password.component';
     EditProfileComponent,
     HomeComponent,
     NewListComponent,
-    EditPasswordComponent
+    EditPasswordComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -41,6 +46,7 @@ import { EditPasswordComponent } from './edit-password/edit-password.component';
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    ImageCropperModule,
     DemoMaterialModule
   ],
   entryComponents: [EditProfileComponent],

@@ -2,13 +2,27 @@
 <div class="card-body">
 
     <form [formGroup]="editProfileForm">
-        <div class="row">
-            <div class="col-md-12 col-sm-12">
-                <mat-form-field>
-                    <input matInput placeholder="Username" formControlName="username" readonly>
-                </mat-form-field>
-            </div>
+        <!-- <div class="text-center">
+            <img [src]="imgURL ? imgURL : 'https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg'" class="avatar-img img-circle" (click)="_fileInput.click()" id="avatar-img">
+            <input type="file" #_fileInput id="browse" style="display: none" accept='image/*' (change)="preview($event)">
+            <span style="color:red;" *ngIf="message">{{message}}</span>
+
+            <h4 class="username-text"> {{ username }} </h4>
+
+        </div> -->
+
+
+
+        <input type="file" #file id="browse" style="display: none" accept='image/*' (change)="fileChangeEvent($event)" />
+
+        <div style="width:50%;background-color: black;">
+            <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 4" [resizeToWidth]="256" format="png" (imageCropped)="imageCropped($event)"></image-cropper>
         </div>
+        <div class="text-center">
+            <img [src]="croppedImage ? croppedImage : 'https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg'" class="avatar-img img-circle" (click)="file.click()" id="avatar-img">
+            <h4 class="username-text"> {{ username }} </h4>
+        </div>
+
 
         <div class="row">
             <div class="col-md-6 col-sm-6">

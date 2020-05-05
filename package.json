@@ -21,8 +21,10 @@
     "@angular/platform-browser": "~9.0.6",
     "@angular/platform-browser-dynamic": "~9.0.6",
     "@angular/router": "~9.0.6",
+    "@types/jquery": "^3.3.37",
     "bootstrap": "^3.4.1",
     "cors": "^2.8.5",
+    "ngx-image-cropper": "^3.1.7",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

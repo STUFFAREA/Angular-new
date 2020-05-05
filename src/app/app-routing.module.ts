@@ -5,9 +5,8 @@ import { RegisterComponent } from './register/register.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './auth.guard';
-import { EditProfileComponent } from './edit-profile/edit-profile.component';
-import { HomeComponent } from './home/home.component';
-import { NewListComponent } from './new-list/new-list.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 const routes: Routes = [  
@@ -15,6 +14,8 @@ const routes: Routes = [
 {  path : 'login' ,component :LoginComponent }, 
 {  path : 'register' ,component :RegisterComponent }, 
 {  path : 'dashboard' , canActivate: [AuthGuard] , component :DashboardComponent}, 
+{  path : 'forget_password' , component : ForgotPasswordComponent },
+{  path : 'reset_password/:resetPasswordToken' , component : ResetPasswordComponent },
 {  path : '**' , component : PagenotfoundComponent }
 ];
 

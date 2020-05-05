@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DatePipe } from '@angular/common';
+import { ImageCroppedEvent } from 'ngx-image-cropper';
 
 @Component({
   selector: 'app-edit-profile',
@@ -16,6 +16,12 @@ gender: string[] = ['Male','Female','Other'];
 profession: string[] = ['Student','Employee','Other'];
 minDate: Date;
 maxDate: Date;
+username: string;
+public imagePath;
+imgURL: any;
+public message: string;
+imageChangedEvent: any = '';
+  croppedImage: any = '';
 
 
   constructor(private dialogRef: MatDialogRef<EditProfileComponent>, 
@@ -35,39 +41,14 @@ maxDate: Date;
 			'DOB' : new FormControl(this.data ? this.data.DOB : null),
 			'phoneNum' : new FormControl(this.data ? this.data.phoneNum : null),
 			'profession' : new FormControl(this.data ? this.data.profession : null),
-		});
+    });
+    this.username = this.data.username;
   }
   
 	onSubmit() {
 		if(!this.editProfileForm.valid) {
 			return;
     }  
-  //   this.authService.changePassword(this.editProfileForm.value).subscribe(
-  //     res => {
-  //       this.error = null;
-	// 	    console.log('Password changed succesfully')
-  //       this.successMsg = res['message'];
-  //       setTimeout(() => this.router.navigate(['/dashboard']),1000);
-  //     },
-  //     err => {
-  //       this.successMsg = null;
-  //       if(err.status === 400) {
-  //       this.error = err.error['message'];
-  //         const array = err.error;
-  //         for(var i in array) {
-  //           const validationErrors = err.error[i].path;
-  //           Object.values(validationErrors).forEach((val:string) => {
-  //             const formControl = this.editProfileForm.get(val);
-  //             if (formControl) {
-  //             formControl.setErrors({
-  //               serverError: err.error[i].context.label
-  //             });		
-  //             }		
-  //           });
-  //         }	          
-  //     }
-  //   }
-  //   );   
   }
   
   onReset() {
@@ -84,5 +65,29 @@ maxDate: Date;
   close() {
     this.dialogRef.close();
   }
+ 
+  preview(files) {
+    if (files.length === 0)
+      return;
+ 
+    var mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message = "Only images are supported.";
+      return;
+    }
+ 
+    var reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]); 
+    reader.onload = (_event) => { 
+      this.imgURL = reader.result; 
+    }
+  }
 
+    fileChangeEvent(event: any): void {
+        this.imageChangedEvent = event;
+    }
+    imageCropped(event: ImageCroppedEvent) {
+        this.croppedImage = event.base64;
+    }
 }

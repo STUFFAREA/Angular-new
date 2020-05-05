@@ -39,53 +39,55 @@
         <button mat-button (click)="sidenav.toggle()" class="toggle-btn">
             <span class="glyphicon glyphicon-menu-hamburger"></span>
           </button>
-        <div *ngFor="let item of list;let i = index">
-            <mat-card class="list-card">
-                <mat-card-header>
-                    <mat-card-title (dblclick)="editListTitle(i)">
-                        <span *ngIf="i!==editListIndex"> {{ item.addList }}</span>
-                        <span class="pull-right remove-list" (click)="removeList(item._id)"> X </span>
-                        <form *ngIf="i===editListIndex" [formGroup]="updateListTitleForm">
-                            <input value="{{ item.addList }}" class="form-control" #addList (keyup.enter)="update(addList.value,item._id)" (blur)="update(addList.value,item._id)">
-                            <span *ngIf="updateListTitleForm.get('addList').touched && !updateListTitleForm.get('addList').valid" class="error-message">
-                                <p *ngIf="updateListTitleForm.get('addList').errors['required']">This field is required.</p>
-                            </span>
-                        </form>
-                    </mat-card-title>
-                </mat-card-header>
-
-                <mat-divider></mat-divider>
-
-                <mat-card-content *ngIf="task" class="task-list">
-                    <div *ngFor="let t of connectedTo"></div>
-                    <div cdkDropList id="{{item._id}}" [cdkDropListData]="task" [cdkDropListConnectedTo]="connectedTo" (cdkDropListDropped)="drop($event,item._id)">
-
-                        <div *ngFor="let taskitem of task;let x = index" cdkDrag>
-                            <span *ngIf="item._id===taskitem._listId"> 
-                            <p *ngIf="taskitem._id!==editTaskIndex" class="task-list-item" (dblclick)="editTaskTitle(taskitem._id)"> {{ taskitem.addTask }} 
-                            <span class="pull-right remove-task" (click)="removeTask(taskitem._id)"> X </span>
-                            </p>
-                            </span>
-                            <form *ngIf="item._id===taskitem._listId && taskitem._id===editTaskIndex" [formGroup]="updateTaskTitleForm">
-                                <input value="{{ taskitem.addTask }}" class="form-control" #addTask (keyup.enter)="updateTask(addTask.value,taskitem._id)" (blur)="updateTask(addTask.value,taskitem._id)">
-                                <span *ngIf="updateTaskTitleForm.get('addTask').touched && !updateTaskTitleForm.get('addTask').valid" class="error-message">
-                                <p *ngIf="updateTaskTitleForm.get('addTask').errors['required']">This field is required.</p>
-                            </span>
-                            </form>
-                        </div>
-                        <form [formGroup]="taskForm">
-                            <mat-form-field>
-                                <mat-label>+ New Task</mat-label>
-                                <input matInput formControlName="addTask" (keyup.enter)="addTask(item._id)" autocomplete="off">
+        <div class="scroll-wrapper">
+            <div *ngFor="let item of list;let i = index" class="list-card">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title (dblclick)="editListTitle(i)">
+                            <span *ngIf="i!==editListIndex"> {{ item.addList }}</span>
+                            <span class="pull-right remove-list" (click)="removeList(item._id)"> X </span>
+                            <form *ngIf="i===editListIndex" [formGroup]="updateListTitleForm">
+                                <input value="{{ item.addList }}" class="form-control" #addList (keyup.enter)="update(addList.value,item._id)" (blur)="update(addList.value,item._id)">
                                 <span *ngIf="updateListTitleForm.get('addList').touched && !updateListTitleForm.get('addList').valid" class="error-message">
                                 <p *ngIf="updateListTitleForm.get('addList').errors['required']">This field is required.</p>
                             </span>
-                            </mat-form-field>
-                        </form>
-                    </div>
+                            </form>
+                        </mat-card-title>
+                    </mat-card-header>
 
-                </mat-card-content>
-            </mat-card>
+                    <mat-divider></mat-divider>
+
+                    <mat-card-content *ngIf="task" class="task-list">
+                        <div *ngFor="let t of connectedTo"></div>
+                        <div cdkDropList id="{{item._id}}" [cdkDropListData]="task" [cdkDropListConnectedTo]="connectedTo" (cdkDropListDropped)="drop($event,item._id)">
+
+                            <div *ngFor="let taskitem of task;let x = index" cdkDrag>
+                                <span *ngIf="item._id===taskitem._listId"> 
+                            <p *ngIf="taskitem._id!==editTaskIndex" class="task-list-item" (dblclick)="editTaskTitle(taskitem._id)"> {{ taskitem.addTask }} 
+                            <span class="pull-right remove-task" (click)="removeTask(taskitem._id)"> X </span>
+                                </p>
+                                </span>
+                                <form *ngIf="item._id===taskitem._listId && taskitem._id===editTaskIndex" [formGroup]="updateTaskTitleForm">
+                                    <input value="{{ taskitem.addTask }}" class="form-control" #addTask (keyup.enter)="updateTask(addTask.value,taskitem._id)" (blur)="updateTask(addTask.value,taskitem._id)">
+                                    <span *ngIf="updateTaskTitleForm.get('addTask').touched && !updateTaskTitleForm.get('addTask').valid" class="error-message">
+                                <p *ngIf="updateTaskTitleForm.get('addTask').errors['required']">This field is required.</p>
+                            </span>
+                                </form>
+                            </div>
+                            <form [formGroup]="taskForm">
+                                <mat-form-field>
+                                    <mat-label>+ New Task</mat-label>
+                                    <input matInput formControlName="addTask" (keyup.enter)="addTask(item._id)" autocomplete="off">
+                                    <span *ngIf="updateListTitleForm.get('addList').touched && !updateListTitleForm.get('addList').valid" class="error-message">
+                                <p *ngIf="updateListTitleForm.get('addList').errors['required']">This field is required.</p>
+                            </span>
+                                </mat-form-field>
+                            </form>
+                        </div>
+
+                    </mat-card-content>
+                </mat-card>
+            </div>
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

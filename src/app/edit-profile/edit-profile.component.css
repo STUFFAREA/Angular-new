@@ -5,6 +5,7 @@
 
 button {
     margin-right: 10px;
+    margin-bottom: 30px;
 }
 
 mat-panel-title {
@@ -34,4 +35,18 @@ mat-panel-title {
     display: inline-block;
     font-size: 12px;
     line-height: 15px;
+}
+
+.avatar-img {
+    width: 170px;
+    height: auto;
+    cursor: pointer;
+}
+
+.username-text {
+    font-weight: 500;
+    font-family: inherit;
+    font-size: large;
+    margin-top: 10px;
+    margin-bottom: 40px;
 }
