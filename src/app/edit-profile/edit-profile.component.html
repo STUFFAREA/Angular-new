@@ -2,82 +2,84 @@
 <div class="card-body">
 
     <form [formGroup]="editProfileForm">
-        <!-- <div class="text-center">
-            <img [src]="imgURL ? imgURL : 'https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg'" class="avatar-img img-circle" (click)="_fileInput.click()" id="avatar-img">
-            <input type="file" #_fileInput id="browse" style="display: none" accept='image/*' (change)="preview($event)">
-            <span style="color:red;" *ngIf="message">{{message}}</span>
 
-            <h4 class="username-text"> {{ username }} </h4>
-
-        </div> -->
-
-
-
-        <input type="file" #file id="browse" style="display: none" accept='image/*' (change)="fileChangeEvent($event)" />
-
-        <div style="width:50%;background-color: black;">
+        <!-- <div style="width:50%;background-color: black;">
             <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="4 / 4" [resizeToWidth]="256" format="png" (imageCropped)="imageCropped($event)"></image-cropper>
         </div>
         <div class="text-center">
             <img [src]="croppedImage ? croppedImage : 'https://mdbootstrap.com/img/Photos/Avatars/img%20%281%29.jpg'" class="avatar-img img-circle" (click)="file.click()" id="avatar-img">
             <h4 class="username-text"> {{ username }} </h4>
+        </div> -->
+
+        <div class="text-center">
+            <img [src]="imgURL ? imgURL : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'" class="avatar-img img-circle" (click)="_fileInput.click()" id="avatar-img">
+
+            <input type="file" #_fileInput style="display: none" accept='image/*' (change)="preview(_fileInput.files)">
+            <span class="img-error-msg" *ngIf="message">{{message}}</span>
+
+            <h4 class="username-text"> {{ username }} </h4>
+
+            <div *ngIf="fileUploadProgress">
+                <mat-progress-bar class="progress-margin" [color]="color" [mode]="mode" [value]="fileUploadProgress" [bufferValue]="bufferValue">
+                </mat-progress-bar>
+            </div>
+
         </div>
 
-
-        <div class="row">
-            <div class="col-md-6 col-sm-6">
+        <div class="row ">
+            <div class="col-md-6 col-sm-6 ">
                 <mat-form-field>
-                    <input matInput placeholder="First name" formControlName="firstName" autocomplete="off">
+                    <input matInput placeholder="First name " formControlName="firstName" autocomplete="off ">
                 </mat-form-field>
             </div>
 
-            <div class="col-md-6 col-sm-6">
+            <div class="col-md-6 col-sm-6 ">
                 <mat-form-field>
-                    <input matInput placeholder="Last name" formControlName="lastName" autocomplete="off">
+                    <input matInput placeholder="Last name " formControlName="lastName" autocomplete="off ">
                 </mat-form-field>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-6 col-sm-6">
+        <div class="row ">
+            <div class="col-md-6 col-sm-6 ">
                 <mat-form-field>
                     <mat-label>Choose a date</mat-label>
-                    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" formControlName="DOB">
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+                    <input matInput [min]="minDate " [max]="maxDate " [matDatepicker]="picker " formControlName="DOB">
+                    <mat-datepicker-toggle matSuffix [for]="picker "></mat-datepicker-toggle>
+                    <mat-datepicker #picker startView="multi-year "></mat-datepicker>
                 </mat-form-field>
             </div>
 
-            <div class="col-md-6 col-sm-6">
+            <div class="col-md-6 col-sm-6 ">
                 <mat-label>Gender: </mat-label>
-                <mat-radio-group class="tp-radio-group" formControlName="gender">
-                    <mat-radio-button class="tp-radio-button" *ngFor="let gender_list of gender" [value]="gender_list">
+                <mat-radio-group class="tp-radio-group " formControlName="gender">
+                    <mat-radio-button class="tp-radio-button " *ngFor="let gender_list of gender " [value]="gender_list ">
                         {{gender_list}}
                     </mat-radio-button>
                 </mat-radio-group>
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-6 col-sm-6">
+        <div class="row ">
+            <div class="col-md-6 col-sm-6 ">
                 <mat-form-field>
                     <mat-label>Phone number</mat-label>
-                    <input matInput formControlName="phoneNum" autocomplete="off">
+                    <input matInput formControlName="phoneNum" autocomplete="off ">
                 </mat-form-field>
             </div>
 
-            <div class="col-md-6 col-sm-6">
+            <div class="col-md-6 col-sm-6 ">
                 <mat-label>Profession: </mat-label>
-                <mat-radio-group class="tp-radio-group" formControlName="profession">
-                    <mat-radio-button class="tp-radio-button" *ngFor="let pro of profession" [value]="pro">
+                <mat-radio-group class="tp-radio-group " formControlName="profession">
+                    <mat-radio-button class="tp-radio-button " *ngFor="let pro of profession " [value]="pro ">
                         {{pro}}
                     </mat-radio-button>
                 </mat-radio-group>
             </div>
         </div>
         <mat-dialog-actions>
-            <button class="mat-raised-button" (click)="close()">Close</button>
-            <button class="mat-raised-button mat-primary" (click)="save()">Update</button>
+            <button class="mat-raised-button " (click)="close() ">Close</button>
+            <button class="mat-raised-button mat-primary " (click)="save() ">Update</button>
         </mat-dialog-actions>
 
     </form>

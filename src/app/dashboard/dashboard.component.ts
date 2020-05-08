@@ -90,6 +90,7 @@ editProfileDialog(){
 
   dialogConfig.data = {
     username: this.username ? this.username : '',
+    // avatar: this.avatar ? this.avatar : '',
     firstName: this.firstName ? this.firstName : '',
     lastName: this.lastName ? this.lastName : '',
     gender: this.gender ? this.gender : '',
@@ -101,6 +102,7 @@ const dialogRef = this.dialog.open(EditProfileComponent, dialogConfig);
 
   dialogRef.afterClosed().subscribe(
       data => {
+        console.log(data);
         if(data) {
           this.listService.updateProfile(data).subscribe(
             res => {
@@ -113,11 +115,14 @@ const dialogRef = this.dialog.open(EditProfileComponent, dialogConfig);
         }        
       });
   }
-openSnackBar(message: string) {
-  this._snackBar.open(message, '', {
-    duration: 2000,
-  });
-}
+  // const formData = new FormData();
+  // formData.append('file', this.editProfileForm.get('fileSource').value);
+ 
+  // this.http.post('http://localhost:8001/upload.php', formData)
+  //   .subscribe(res => {
+  //     console.log(res);
+  //     alert('Uploaded Successfully.');
+  //   })
 changePasswordDialog() {
   const dialogConfig = new MatDialogConfig();
   dialogConfig.autoFocus = false;
@@ -132,6 +137,12 @@ changePasswordDialog() {
             this.openSnackBar("Password updated successfully !");
           });
         }
+    });
+  }
+
+  openSnackBar(message: string) {
+    this._snackBar.open(message, '', {
+      duration: 2000,
     });
   }
 }

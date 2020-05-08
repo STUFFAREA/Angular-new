@@ -1,3 +1,96 @@
+.navbar {
+    border: 0;
+    border-radius: 0;
+    background: -webkit-gradient( linear, left top, right top, from(#41295a), to(#2f0743));
+    background: linear-gradient(to right, #41295a, #2f0743);
+}
+
+.navbar .nav li>a,
+.navbar .navbar-brand {
+    max-height: 50px;
+    width: auto;
+    background: transparent !important;
+    font-size: 14px;
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+
+/* username change property */
+
+.navbar .nav li>a:hover .link,
+.navbar .navbar-brand:hover .link {
+    width: 100%;
+    visibility: visible;
+    font-size: 14px;
+    padding: 5px;
+}
+
+
+/* Blink Name */
+
+.navbar .link {
+    width: 0;
+    font-family: "Roboto", sans-serif;
+    -webkit-transition: 0.2s ease-in-out;
+    transition: 0.2s ease-in-out;
+    visibility: hidden;
+    font-size: 0px;
+}
+
+
+/* change color of home and username */
+
+.navbar span {
+    color: #fff;
+}
+
+
+/* drop list on of */
+
+.navbar .dropdown.open .link {
+    width: 100%;
+    visibility: visible;
+    font-size: 14px;
+    padding: 5px;
+}
+
+
+/* dropdown list color */
+
+.navbar .dropdown .dropdown-menu {
+    background: #2f0743;
+}
+
+
+/* dropdown font */
+
+.navbar .dropdown .dropdown-menu li,
+.navbar .dropdown .dropdown-menu a {
+    color: white;
+    font-size: 14px;
+    line-height: 30px;
+}
+
+
+/* animation */
+
+.navbar .dropdown .dropdown-menu li:hover,
+.navbar .dropdown .dropdown-menu a:hover {
+    background: #9c7bac63;
+}
+
+.bi {
+    margin-right: 10px;
+}
+
+.navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+
+
+/* padding of dropdown */
+
 .glyphicon {
     padding: 0 5px;
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl, ControlContainer } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
@@ -22,9 +22,13 @@ export class ResetPasswordComponent implements OnInit {
 	ngOnInit(): void {
 		this.resetPasswordForm = new FormGroup({
 			'new_password' : new FormControl(null,[Validators.required]),
-			'confirm_password' : new FormControl(null,[Validators.required]),
+			'confirm_password' : new FormControl(null,[Validators.required,passwordConfirming]),
     });
     
+    this.resetPasswordForm.controls.new_password.valueChanges
+    .subscribe(x=> this.resetPasswordForm.controls.confirm_password.updateValueAndValidity()
+    )
+
     this.route.params
       .subscribe(
         (params: Params) => {
@@ -32,8 +36,8 @@ export class ResetPasswordComponent implements OnInit {
         });    
 	}
   onSubmit() {
-    // console.log(this.urlId);return;
 		if(!this.resetPasswordForm.valid) {
+      this.resetPasswordForm.markAllAsTouched();
 			return;
     }
     var data = {
@@ -42,19 +46,29 @@ export class ResetPasswordComponent implements OnInit {
 		this.authService.resetPassword(data,this.urlId).subscribe(
       res => {	
 			console.log(res);
-			// this.errorMsg = null;				
-			// this.successMsg = res["message"];
+			this.errorMsg = null;				
+			this.successMsg = res["message"];
 		},
 		err => {
 			console.log(err);
-			// this.successMsg = null;
-			// this.errorMsg = err["error"]["message"];				
+			this.successMsg = null;
+			this.errorMsg = err["error"]["message"];				
 		});
 
 	}
-  passwordConfirming(c: AbstractControl): { invalid: boolean } {
-    if (c.get('new_password').value !== c.get('confirm_password').value) {
-        return {invalid: true};
-    }
+  
+
 }
+function passwordConfirming(control: AbstractControl): { invalidMatch: boolean } {
+  if(control && control.value!== null || control.value!== 'undefined'){
+    const confPass = control.value;
+    const passValue = control.root.get('new_password');
+    if(passValue) {
+      const password = passValue.value;
+      if(confPass !== password) {
+        return { invalidMatch : true }
+      }
+    }
+  }
+  return null;
 }

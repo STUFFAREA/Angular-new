@@ -21,6 +21,7 @@ import { DemoMaterialModule } from './material-module';
 import { NewListComponent } from './new-list/new-list.component'; 
 import { EditPasswordComponent } from './edit-password/edit-password.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { FileUploadModule } from 'ng2-file-upload';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
@@ -47,6 +48,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ImageCropperModule,
+    FileUploadModule,
     DemoMaterialModule
   ],
   entryComponents: [EditProfileComponent],

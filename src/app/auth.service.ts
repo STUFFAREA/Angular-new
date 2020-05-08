@@ -123,6 +123,19 @@ export class AuthService {
 	resetPassword(postData,urlId) {
 		return this.http.post(environment.apiBaseUrl+'/reset_password/'+urlId, postData)
 	}
+	uploadImage(formData ) {
+      return this.http.post(environment.apiBaseUrl+'/profile/avatar', formData, {
+		headers: { Authorization: this.getToken() }, 
+		reportProgress: true,
+		observe: 'events'		   
+		})
+	}
+	
+	public getImage() {
+		return this.http.get(environment.apiBaseUrl+'/profile/avatar', {		 
+			headers: { Authorization: this.getToken() }		 
+			})
+	}
 	onLogout() {
 		return this.http.post(environment.apiBaseUrl+'/signout','', {		 
 		headers: { Authorization: this.getToken() }		 

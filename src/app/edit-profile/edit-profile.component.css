@@ -37,10 +37,22 @@ mat-panel-title {
     line-height: 15px;
 }
 
+.img-error-msg {
+    color: #f44336;
+    display: block;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
 .avatar-img {
     width: 170px;
-    height: auto;
+    height: 170px;
     cursor: pointer;
+}
+
+.progress-margin {
+    width: 70%;
+    margin: 0 auto 40px auto;
 }
 
 .username-text {
