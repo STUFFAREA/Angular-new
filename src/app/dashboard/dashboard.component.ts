@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
@@ -8,6 +8,7 @@ import { NewListComponent } from '../new-list/new-list.component';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 import { EditPasswordComponent } from '../edit-password/edit-password.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +21,8 @@ export class DashboardComponent implements OnInit {
   @ViewChild(NewListComponent)
   private newListComponent: NewListComponent;
 
+  @ViewChild('drawer', { static: true }) drawer_content : MatSidenav;
+
   username : string;
   firstName : string;
   lastName : string;
@@ -27,7 +30,7 @@ export class DashboardComponent implements OnInit {
   profession : string;
   phoneNum : number;
   DOB : string;
-
+  
   constructor(
     private authService : AuthService,
     private router: Router,
@@ -144,5 +147,18 @@ changePasswordDialog() {
     this._snackBar.open(message, '', {
       duration: 2000,
     });
+  }
+  
+  changeStyle() {
+    this.drawerToggle();
+    document.getElementById('dropdown-menu').style.height='500px';
+  }
+  changeStyleAgain() {
+    // document.getElementById('dropdown-menu').style.height='200px';
+    this.drawerToggle();
+
+  }
+  drawerToggle() {
+    this.drawer_content.toggle();
   }
 }

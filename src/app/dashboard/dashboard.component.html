@@ -20,29 +20,100 @@
               ><span class="link">List</span></a
             >
           </li>
-  
           <li class="dropdown">
-            <a
-              routerLink="/dashboard"
-              data-toggle="dropdown"
-              ><span class="glyphicon glyphicon-user"></span
-              ><span class="link"> {{ username }}</span>
+            <a class="dropdown-toggle" data-toggle="dropdown">
+              <span class="glyphicon glyphicon-user"></span>
+              <span class="link"> {{ username }}</span>
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-                <li>
-                    <a (click)="editProfileDialog()"> Profile</a>
-                </li>
-                <li>
-                    <a (click)="changePasswordDialog()">Edit Password</a>
-                </li>
-                <li>
-                    <a (click)="onLogout()">Logout</a>
-                </li>
+                <mat-drawer-container class="example-container" id="dropdown-menu">
+                    <mat-drawer #drawer mode="over" class="mat-drawer">
+                        <div class="bg-card">
+                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
+                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
+                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
+                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
+                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
+                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
+                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
+                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
+                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
+                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
+                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
+                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
+                            <button class="btn" (click)="changeStyleAgain()">=</button>
+                        </div>
+                    </mat-drawer>
+                    <mat-drawer-content class="drawer-content">
+                        <li (click)="editProfileDialog()"><a> Profile</a></li>
+                        <li (click)="changePasswordDialog()"><a>Edit Password</a></li>
+                        <li class="dropdown-submenu" (click)="changeStyle()"><a><span class="caret"></span>Change Background</a></li>
+                        <li (click)="onLogout()"><a>Logout</a></li>
+                    </mat-drawer-content>
+                </mat-drawer-container>
             </ul>
             </li>
             </ul>
         </div>
     </div>
 </nav>
+
+<!-- <li class="dropdown">
+            <a
+              routerLink="/dashboard"
+              data-toggle="dropdown" 
+              class="dropdown-toggle"
+              ><span class="glyphicon glyphicon-user"></span
+              ><span class="link"> {{ username }}</span>
+              <span class="caret"></span>
+            </a>
+
+            <mat-drawer-container class="example-container dropdown-menu">
+
+
+                <div class="example-sidenav-content">
+                    <ul class="">
+                        <li>
+                            <a (click)="editProfileDialog()"> Profile</a>
+                        </li>
+                        <li>
+                            <a (click)="changePasswordDialog()">Edit Password</a>
+                        </li>
+                        <li>
+                            <a (click)="onLogout()">Logout</a>
+                        </li>
+                        <li class="dropdown dropdown-submenu ">
+                            <a>Change Theme</a></li>
+                    </ul>
+                    <button type="button" mat-button (click)="drawer.toggle()">
+                        Change Theme
+                      </button>
+                </div>
+                <mat-drawer #drawer class="example-sidenav" mode="over">
+                    <p>Auto-resizing sidenav</p>
+                </mat-drawer>
+
+            </mat-drawer-container>
+            </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+        <p>Auto-resizing sidenav</p>
+        <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+        <button (click)="showFiller = !showFiller" mat-raised-button>
+      Toggle extra text
+    </button>
+    </mat-drawer>
+
+    <div class="example-sidenav-content">
+        <button type="button" mat-button (click)="drawer.toggle()">
+      Toggle sidenav
+    </button>
+    </div>
+
+</mat-drawer-container> -->
 <app-new-list></app-new-list>

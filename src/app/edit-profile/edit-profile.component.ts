@@ -25,11 +25,7 @@ username: string;
 public imagePath;
 imgURL: any;
 public message: string;
-imageChangedEvent: any = '';
-  croppedImage: any = '';
   fileData: File = null;
-  uploadedFilePath: string = null;
-  imagData;
   fileUploadProgress;
 
   color: ThemePalette = 'primary';
@@ -146,10 +142,4 @@ imageChangedEvent: any = '';
     }
   }
 
-    fileChangeEvent(event: any): void {
-        this.imageChangedEvent = event;
-    }
-    imageCropped(event: ImageCroppedEvent) {
-        this.croppedImage = event.base64;
-    }
 }

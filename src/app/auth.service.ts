@@ -97,19 +97,6 @@ export class AuthService {
 		);	
 	}
 
-	// public getUserDetails(): UserDetails { 
-	// 		const token = this.getToken()			 
-	// 		let payload;			 
-	// 		if (token) {			 
-	// 		payload = token.split('.')[1]			 
-	// 		payload = window.atob(payload)	
-	// 		console.log(JSON.parse(payload))		 
-	// 		return JSON.parse(payload)			 
-	// 		} else {			 
-	// 		return null		 
-	// 		}		
-	// 	}
-
 	changePassword(postData) {
 		return this.http.post(environment.apiBaseUrl+'/change_password', postData, {		 
 		headers: { Authorization: this.getToken() }		 
