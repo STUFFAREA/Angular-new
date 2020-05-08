@@ -66,8 +66,10 @@ input.ng-invalid.ng-touched {
 
 .mat-card {
     width: 250px;
-    box-shadow: 2px 2px 7px #aaaaaa;
+    box-shadow: 12px 12px 17px #aaaaaa;
     background-color: #dadada;
+    overflow-y: auto;
+    max-height: 600px;
 }
 
 .list-card {
