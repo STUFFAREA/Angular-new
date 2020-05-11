@@ -34,9 +34,9 @@
                             <button class="btn" (click)="changeStyleAgain()">=</button>
                         </div> -->
                         <div class="bg-card" *ngFor="let image of background;index as i">
-                            <img [src]="image" (click)="changeBackground(image)" />
+                            <img #imagepreview [src]="image" (click)="changeBackground(image)" />
                             <div class="middle">
-                                <div class="text" (click)="sendBackground(i)">Apply</div>
+                                <div class="text" (click)="imagepreview.click()" (click)="sendBackground(i)">Apply</div>
                             </div>
                         </div>
                         <button class="btn" (click)="changeStyleAgain()">=</button>

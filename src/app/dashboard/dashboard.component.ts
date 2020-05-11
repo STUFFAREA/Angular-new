@@ -85,7 +85,8 @@ export class DashboardComponent implements OnInit {
      res => {
        console.log(res)
        var imgData = 'data:image/png;base64,' + res['image'];
-       this.setBackgroundStyle(imgData);       
+       this.setBackgroundStyle(imgData);    
+       this.openSnackBar("Background changed successfully !");
      },
      err => {
        console.log(err)
@@ -119,7 +120,7 @@ setBackgroundStyle(imgUrl) {
  changeBackground(image) {
    this.setBackgroundStyle(image);
  }
- 
+
  sendBackground(index) {
   this.authService.sendBackground(index).subscribe(
     res => {
