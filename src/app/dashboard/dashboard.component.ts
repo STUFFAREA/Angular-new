@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
@@ -30,17 +30,26 @@ export class DashboardComponent implements OnInit {
   profession : string;
   phoneNum : number;
   DOB : string;
+
+  background = [];
+  imgdemo;
+  bgUrl;
   
   constructor(
     private authService : AuthService,
     private router: Router,
     private dialog: MatDialog, 
     private listService : ListService,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    private renderer: Renderer2,
+    private el: ElementRef
     ) { }
 
   ngOnInit(): void {
     this.getUsername();
+    this.getBackgroundImages();
+    this.setBackgroundImg();
+    
   } 
  getUsername() {
   this.listService.getUserProfile().subscribe(
@@ -56,9 +65,73 @@ export class DashboardComponent implements OnInit {
       }
     }
   );
-
  }
-  onLogout() {
+ getBackgroundImages() {
+   this.authService.getBackgroundImages().subscribe(
+     res => {
+       for(var i in res['image']){
+         var imgData = 'data:image/png;base64,' + res['image'][i];
+         this.background.push(imgData)
+         this.imgdemo = res['image'][i];
+       }
+     },
+     err => {
+       console.log(err)
+     }
+   )
+ }
+ public setBackgroundImg(){
+   this.authService.getBackgroundImage().subscribe(
+     res => {
+       console.log(res)
+       var imgData = 'data:image/png;base64,' + res['image'];
+       this.setBackgroundStyle(imgData);       
+     },
+     err => {
+       console.log(err)
+     }
+   )
+}
+setBackgroundStyle(imgUrl) {
+  var imageUrl = 'url('+imgUrl+')'; 
+
+  this.renderer.setStyle(
+    document.getElementById('sidenav-content'),
+    'background-image',
+    imageUrl
+  );
+  this.renderer.setStyle(
+    document.getElementById('sidenav-content'),
+    'background-repeat',
+    'no-repeat'
+  );
+  this.renderer.setStyle(
+    document.getElementById('sidenav-content'),
+    'background-position',
+    'center'
+  );
+  this.renderer.setStyle(
+    document.getElementById('sidenav-content'),
+    'background-size',
+    'cover'
+  ); 
+}
+ changeBackground(image) {
+   this.setBackgroundStyle(image);
+ }
+ 
+ sendBackground(index) {
+  this.authService.sendBackground(index).subscribe(
+    res => {
+      console.log("success",res);
+    },
+    err => {
+      console.log("Error",err)
+    }
+  )
+ }
+ 
+  onLogout() { 
     this.authService.onLogout().subscribe(
       res => {
         localStorage.clear();	
@@ -93,7 +166,6 @@ editProfileDialog(){
 
   dialogConfig.data = {
     username: this.username ? this.username : '',
-    // avatar: this.avatar ? this.avatar : '',
     firstName: this.firstName ? this.firstName : '',
     lastName: this.lastName ? this.lastName : '',
     gender: this.gender ? this.gender : '',
@@ -118,14 +190,6 @@ const dialogRef = this.dialog.open(EditProfileComponent, dialogConfig);
         }        
       });
   }
-  // const formData = new FormData();
-  // formData.append('file', this.editProfileForm.get('fileSource').value);
- 
-  // this.http.post('http://localhost:8001/upload.php', formData)
-  //   .subscribe(res => {
-  //     console.log(res);
-  //     alert('Uploaded Successfully.');
-  //   })
 changePasswordDialog() {
   const dialogConfig = new MatDialogConfig();
   dialogConfig.autoFocus = false;

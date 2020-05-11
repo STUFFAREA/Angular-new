@@ -64,7 +64,7 @@ public message: string;
         this.imgURL = 'data:image/png;base64,' + res;
       },
       err => {
-          console.log('erorr');
+          console.log(err);
         }
     );
   }
@@ -101,11 +101,9 @@ public message: string;
           console.log(events);
           if(events.type === HttpEventType.UploadProgress) {
             this.fileUploadProgress = Math.round(events.loaded / events.total * 100);
-            console.log(this.fileUploadProgress);
           // this.uploadedFilePath = res.data.filePath;
         } else if(events.type === HttpEventType.Response) {
           this.fileUploadProgress = '';
-          console.log(events.body);   
           this.dialogRef.close(this.editProfileForm.value);
 
         }
@@ -124,6 +122,8 @@ public message: string;
   }
  
   preview(files) {
+    this.message = null;
+    this.fileUploadProgress=null;
     if (files.length === 0)
       return;
  

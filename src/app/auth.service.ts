@@ -128,4 +128,17 @@ export class AuthService {
 		headers: { Authorization: this.getToken() }		 
 		})
 	}
+	getBackgroundImages() {
+		return this.http.get(environment.apiBaseUrl+'/background');
+	}
+	sendBackground(imageData) {
+		return this.http.post(environment.apiBaseUrl+'/demo/'+imageData,'', {		 
+			headers: { Authorization: this.getToken() }		 
+			})
+	}
+	getBackgroundImage() {
+		return this.http.get(environment.apiBaseUrl+'/demo', {		 
+			headers: { Authorization: this.getToken() }		 
+			})
+	}
 }

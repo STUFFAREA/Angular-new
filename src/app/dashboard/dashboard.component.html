@@ -29,21 +29,18 @@
             <ul class="dropdown-menu">
                 <mat-drawer-container class="example-container" id="dropdown-menu">
                     <mat-drawer #drawer mode="over" class="mat-drawer">
-                        <div class="bg-card">
-                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
-                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
-                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
-                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
-                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
-                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
-                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
-                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
-                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
-                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
-                            <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
+                        <!-- <div class="bg-card">
                             <img src="https://cdn.pixabay.com/photo/2012/08/27/14/19/evening-55067__340.png" />
                             <button class="btn" (click)="changeStyleAgain()">=</button>
+                        </div> -->
+                        <div class="bg-card" *ngFor="let image of background;index as i">
+                            <img [src]="image" (click)="changeBackground(image)" />
+                            <div class="middle">
+                                <div class="text" (click)="sendBackground(i)">Apply</div>
+                            </div>
                         </div>
+                        <button class="btn" (click)="changeStyleAgain()">=</button>
+
                     </mat-drawer>
                     <mat-drawer-content class="drawer-content">
                         <li (click)="editProfileDialog()"><a> Profile</a></li>
