@@ -133,27 +133,42 @@ export class AuthService {
 
 
 	// get background images - default and custom respectively
-	getBackgroundImages() {
-		return this.http.get(environment.apiBaseUrl+'/customBackground');
-	}
+	
 	fetchBgImages() {
 		return this.http.get(environment.apiBaseUrl+'/defaultBackground')
+	}
+	getBackgroundImages() {
+		return this.http.get(environment.apiBaseUrl+'/background');
 	}
 
 	// upload background images - custom 
 	uploadBgImage(fileData) {
-		return this.http.post(environment.apiBaseUrl+'/customBackground',fileData)
+		return this.http.post(environment.apiBaseUrl+'/background',fileData)
 	}
 
-	//  set background
+	//  Set background onload
+
+	//send bg data to server
 	sendBackground(imageData,type) {
 		return this.http.post(environment.apiBaseUrl+'/getBackground/'+imageData+'/'+type,'', {		 
 			headers: { Authorization: this.getToken() }		 
 			})
 	}
+
+	//get and set bg image finally - both  default and custom
 	getBackgroundImage() {
 		return this.http.get(environment.apiBaseUrl+'/setBackground', {		 
 			headers: { Authorization: this.getToken() }		 
 			})
 	}
+
+	// sendBackground(imageData) {
+	// 	return this.http.post(
+	// 	  environment.apiBaseUrl + "/getBackground/" + imageData + "/Custom/",
+	// 	  "",
+	// 	  {
+	// 		headers: { Authorization: this.getToken() },
+	// 	  }
+	// 	);
+	//   }
 }

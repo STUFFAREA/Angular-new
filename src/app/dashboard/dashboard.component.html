@@ -51,9 +51,9 @@
                             </div>
 
                             <div class="bg-card" *ngFor="let image of bgImages;index as i">
-                                <img [src]="image.imgUrl" (click)="changeBackground(image.imgUrl)" />
+                                <img [src]="image.imgUrl" (click)="previewBg(image.imgUrl)" />
                                 <div class="middle">
-                                    <div class="text" (click)="sendBackground(i,image.imgUrl,image.type)">Apply</div>
+                                    <div class="text" (click)="sendBackground(i-1,image.imgUrl,image.type)">Apply</div>
                                 </div>
                             </div>
 

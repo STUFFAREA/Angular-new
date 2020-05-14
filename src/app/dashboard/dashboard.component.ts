@@ -51,10 +51,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsername();
-    this.getBackgroundImages();
+    this.getDefaultBgImages();    
+    this.getCustomBgImages();
     this.setBackgroundImg();
-    this.fetchBgImages();
-    
   } 
 //---------------------------Methods called on init----------------
 
@@ -78,8 +77,8 @@ getUsername() {
 //  Get background images - custom ['bgImages' array for both custom and default images]
 //  Custom images in binary, Default images in .jpg format
 
-//  Get background images - Default [.jpg]
-  fetchBgImages() {
+//  Get background images - Default [.jpg format]
+getDefaultBgImages() {
     this.authService.fetchBgImages().subscribe(
       res => {
         for( var i in res['message']['imageUrl']) {
@@ -94,28 +93,28 @@ getUsername() {
     )
   }
  
-//  Get background images - Custom [binary]
- getBackgroundImages() {
-   this.authService.getBackgroundImages().subscribe(
-     res => {
-       for(var i in res['image']){
-         var imgData = 'data:image/png;base64,' + res['image'][i];
-         this.bgImages.push({
-            'imgUrl' : imgData,
-            'type' : 'custom'})
-        // })
-        //  this.imgdemo = res['image'][i];
-       }
-     },
-     err => {
-       console.log(err)
-     }
-   )
- }
+//  Get background images - Custom [binary format - base64]
+getCustomBgImages() {
+  this.authService.getBackgroundImages().subscribe(
+    (res) => {
+      for (var i in res["image"]["imageUrl"]) {
+        this.bgImages.unshift({                             //to add custom image at the beginning of an array
+          imgUrl: "data:image/png;base64," + res["image"]["imageUrl"][i],
+          type: res["image"]["Name"],
+        });
+      }
+      console.log(this.bgImages);
+    },
+    (err) => {
+      console.log(err);
+    }
+  );
+}
 
  //Sending selected Bg image to backend
  sendBackground(index,image,type) {
-  this.changeBackground(image);
+  this.previewBg(image);
+  if(type === 'Custom') {index = '0'}
  this.authService.sendBackground(index,type).subscribe(
    res => {
      this.setBackgroundImg();
@@ -126,22 +125,28 @@ getUsername() {
    }
  )
 }
- //Setting selected Bg image
+
+ //Setting selected Bg image - for Custom set binary image & for default set .jpg url
  public setBackgroundImg(){
    this.authService.getBackgroundImage().subscribe(
      res => {
+       if(res['type']['Name'] === 'Custom') {                           // Custom
+        var imgData = 'data:image/png;base64,' + res['image'];  
+       }
+       else {                                                          // Binary
        if(res['image']) {
         var imgData =  this.baseUrl+res['image']
-        this.setBackgroundStyle(imgData);  
        }  
-     },
+     }
+     this.setBackgroundStyle(imgData);                                 // Set background using renderer2
+    },
      err => {
        console.log(err)
      }
    )
 }
 
- //Generic method to set Bg images on sidenav-content
+//Generic method to set Bg images on sidenav-content
 setBackgroundStyle(imgUrl) {
   var imageUrl = 'url('+imgUrl+')'; 
 
@@ -166,17 +171,20 @@ setBackgroundStyle(imgUrl) {
     'cover'
   ); 
 }
- changeBackground(image) {
+
+//Preview selected background
+ previewBg(image) {
    this.setBackgroundStyle(image);
  }
 
- 
+ //On 'none' select background
  noBackgroundImg() {
    this.renderer.setStyle(document.getElementById('sidenav-content'),
    'background',
-   'rgba(232, 232, 232, 0.87)'
- ); 
+   'rgba(232, 232, 232, 0.87)'); 
  }
+
+ //send 'none' select background data to server
  setNoBackground() {
   this.authService.sendBackground(null,null).subscribe(
     res => {
@@ -188,12 +196,14 @@ setBackgroundStyle(imgUrl) {
     }
   )
  }
+ 
+ //Send custom bg data to server
  addCustomgBg(files) {
    if (files.length === 0)
       return;
  
     var mimeType = files[0].type;
-    if (mimeType.match(/image\/*/) == null) {
+    if(mimeType.match(/image\/*/) == null) {
       document.getElementById('canError').innerHTML = 'Only image file format supported.'
       document.getElementById('canError').style.color = 'red'
       return;
@@ -202,12 +212,15 @@ setBackgroundStyle(imgUrl) {
       this.fileData = files[0];      
   
       const formData = new FormData();
-      formData.append('background1', this.fileData);
+      formData.append('backGround1', this.fileData);
       // console.log(this.fileData);return;
       if(this.fileData) {
       this.authService.uploadBgImage(formData)
         .subscribe(res => {
           console.log(res);
+          this.bgImages.splice(0,1);    //Removing
+          this.getCustomBgImages();
+          this.openSnackBar("Added successfully !");
     });
   }
   } 
